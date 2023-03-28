@@ -90,6 +90,13 @@ flutter:
         - asset: assets/fonts/Hind-Medium.ttf
         - asset: assets/fonts/Hind-Regular.ttf
         - asset: assets/fonts/Hind-SemiBold.ttf
+    - family: Mukta
+      fonts:
+        - asset: assets/fonts/Mukta-Bold.ttf
+        - asset: assets/fonts/Mukta-Light.ttf
+        - asset: assets/fonts/Mukta-Medium.ttf
+        - asset: assets/fonts/Mukta-Regular.ttf
+        - asset: assets/fonts/Mukta-SemiBold.ttf
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,

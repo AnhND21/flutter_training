@@ -1,41 +1,23 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
+import 'package:flutter_training/models/actor.dart';
 
 class Movies {
   String movieName = '';
   String imdb = "";
   String thumbnail = '';
+  String description = '';
+  String mainActor = '';
+  String category = '';
+  int? requireAge = 0;
+  List<Actor>? actors = [];
+
   Movies({
     required this.movieName,
     required this.imdb,
     required this.thumbnail,
+    required this.description,
+    required this.mainActor,
+    required this.category,
+    this.requireAge = 0,
+    this.actors,
   });
-
-  Movies copyWith({
-    String? movieName,
-    String? imdb,
-    String? thumbnail,
-  }) {
-    return Movies(
-      movieName: movieName ?? this.movieName,
-      imdb: imdb ?? this.imdb,
-      thumbnail: thumbnail ?? this.thumbnail,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'movieName': movieName,
-      'imdb': imdb,
-      'thumbnail': thumbnail,
-    };
-  }
-
-  factory Movies.fromMap(Map<String, dynamic> map) {
-    return Movies(
-      movieName: map['movieName'] as String,
-      imdb: map['imdb'] as String,
-      thumbnail: map['thumbnail'] as String,
-    );
-  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_training/core/theme_data.dart';
 import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
+import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
 import 'package:flutter_training/screens/profile_screen.dart';
 import 'package:flutter_training/screens/root.dart';
@@ -53,7 +54,8 @@ class _MyAppState extends State<MyApp> {
               '/root': (context) => const RootScreen(),
               '/listing': (context) => const ListingScreen(),
               '/profile': (context) => const ProfileScreen(),
-              '/movies': (context) => const MoviesScreen()
+              '/movies': (context) => const MoviesScreen(),
+              '/movie_detals': (context) => const MovieDetails(),
             },
           );
         },
