@@ -29,11 +29,16 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.2.3
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
+  dio: ^5.1.0
+  dots_indicator: ^2.1.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.2
   flutter_svg: ^2.0.4
   provider: ^6.0.5
+  retrofit: ^4.0.1
   shared_preferences: ^2.0.20
   video_player: ^2.6.0
   youtube_player_flutter: ^8.1.2
@@ -57,6 +62,10 @@ flutter:
     - assets/svgs/faq.svg
     - assets/svgs/contact.svg
     - assets/svgs/term.svg
+    - assets/svgs/menu.svg
+    - assets/svgs/movie.svg
+    - assets/svgs/tvseries.svg
+    - assets/svgs/theatre.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

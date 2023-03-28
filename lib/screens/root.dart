@@ -11,9 +11,9 @@ class _RootScreenState extends State<RootScreen> {
   List<String> list = <String>[
     "Exercise 1",
     'Exercise 2',
-    'Exercise 3',
-    'Exercise 4',
-    'Exercise 5'
+    'Movies',
+    'Weather',
+    'Firebase Chat'
   ];
 
   void onNavigateToScreen(int index) {
@@ -24,6 +24,9 @@ class _RootScreenState extends State<RootScreen> {
         break;
       case 1:
         route = '/profile';
+        break;
+      case 2:
+        route = '/movies';
         break;
       default:
     }

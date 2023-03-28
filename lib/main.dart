@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_training/core/theme_data.dart';
 import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
+import 'package:flutter_training/screens/movies_screens.dart';
 import 'package:flutter_training/screens/profile_screen.dart';
 import 'package:flutter_training/screens/root.dart';
 import 'package:flutter_training/screens/splash_screen.dart';
@@ -51,7 +52,8 @@ class _MyAppState extends State<MyApp> {
               "/": (context) => const SplashScreen(),
               '/root': (context) => const RootScreen(),
               '/listing': (context) => const ListingScreen(),
-              '/profile': (context) => const ProfileScreen()
+              '/profile': (context) => const ProfileScreen(),
+              '/movies': (context) => const MoviesScreen()
             },
           );
         },
