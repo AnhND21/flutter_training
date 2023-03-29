@@ -28,6 +28,9 @@ class _RootScreenState extends State<RootScreen> {
       case 2:
         route = '/movies';
         break;
+      case 3:
+        route = '/weather';
+        break;
       default:
     }
 

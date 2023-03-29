@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animated_widgets: ^1.1.0
   cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
@@ -37,6 +38,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.2
   flutter_svg: ^2.0.4
+  http: ^0.13.5
   provider: ^6.0.5
   readmore: ^2.2.0
   retrofit: ^4.0.1
