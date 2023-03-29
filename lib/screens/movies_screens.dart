@@ -38,33 +38,51 @@ class _MoviesScreenState extends State<MoviesScreen> {
       Actor(
           name: "Chris Hemsworth",
           actorName: "Thor",
-          avatar: "https://i.ebayimg.com/images/g/hYgAAOSw2hdi2g74/s-l500.jpg"),
+          avatar:
+              "https://www.pinkvilla.com/imageresize/leonardo_dicaprio_0.jpeg?width=752&t=pvorg"),
       Actor(
           name: "Natalie Portman",
           actorName: "Jane Foster",
-          avatar: "https://i.ebayimg.com/images/g/hYgAAOSw2hdi2g74/s-l500.jpg"),
+          avatar:
+              "https://ichef.bbci.co.uk/news/976/cpsprodpb/62CB/production/_126319252_gettyimages-1361454688.jpg"),
       Actor(
           name: "Tom Hiddleston",
           actorName: "Loki",
-          avatar: "https://i.ebayimg.com/images/g/hYgAAOSw2hdi2g74/s-l500.jpg"),
+          avatar:
+              "https://i.insider.com/5751876c52bcd05b008c6a5b?width=1071&format=jpeg"),
     ]);
 
     comingUpMovieList.addAll([
       UpcomingMovie(
-          movieName: 'A',
-          imdb: '10',
+          movieName: 'To the moon',
+          imdb: '9.9',
           thumbnail:
-              'https://marketplace.canva.com/EAFMqwkPfOY/2/0/1131w/canva-black-minimalist-horror-movie-poster-3bttgZhMDnA.jpg'),
+              'https://marketplace.canva.com/EAFMqwkPfOY/2/0/1131w/canva-black-minimalist-horror-movie-poster-3bttgZhMDnA.jpg',
+          description:
+              "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
+          category: 'Romantic',
+          mainActor: 'Biden',
+          actors: actorList),
       UpcomingMovie(
-          movieName: 'B',
+          movieName: 'Putin Đại Đế',
           imdb: '10',
           thumbnail:
-              'https://i.ebayimg.com/images/g/hYgAAOSw2hdi2g74/s-l500.jpg'),
+              'https://i.ebayimg.com/images/g/hYgAAOSw2hdi2g74/s-l500.jpg',
+          description:
+              "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
+          category: 'Romantic',
+          mainActor: 'Putin',
+          actors: actorList),
       UpcomingMovie(
-          movieName: 'C',
-          imdb: '10',
+          movieName: 'Đô nan Chăm',
+          imdb: '9.1',
           thumbnail:
-              'https://upload.wikimedia.org/wikipedia/vi/f/fe/1917_%282019%29_Film_Poster.jpeg')
+              'https://upload.wikimedia.org/wikipedia/vi/f/fe/1917_%282019%29_Film_Poster.jpeg',
+          description:
+              "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
+          category: 'Romantic',
+          mainActor: 'Chăm',
+          actors: actorList)
     ]);
 
     movieList.addAll([

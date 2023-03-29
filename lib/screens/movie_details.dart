@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/components/custom_bottom_tabs.dart';
 import 'package:flutter_training/models/movies.dart';
+import 'package:readmore/readmore.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
@@ -16,7 +17,7 @@ class MovieDetails extends StatefulWidget {
 class _MovieDetailsState extends State<MovieDetails> {
   @override
   Widget build(BuildContext context) {
-    final moive = ModalRoute.of(context)!.settings.arguments as Movies;
+    final moive = ModalRoute.of(context)!.settings.arguments as dynamic;
     return Scaffold(
       body: DefaultTabController(
           length: 5,
@@ -30,6 +31,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     imageUrl: moive.thumbnail,
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.width / 1.2,
+                    width: MediaQuery.of(context).size.width,
                   ),
                   Padding(
                     padding:
@@ -39,30 +41,32 @@ class _MovieDetailsState extends State<MovieDetails> {
                           Navigator.pop(context);
                         },
                         icon: const Icon(
-                          Icons.arrow_back_rounded,
+                          CupertinoIcons.arrow_uturn_left,
                           color: Colors.white,
                           size: 30,
                         )),
                   ),
                   Positioned(
-                      bottom: 0,
-                      child: SingleChildScrollView(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height -
-                              (MediaQuery.of(context).size.width / 1.2),
-                          // alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                            border: Border.fromBorderSide(
-                                BorderSide(width: 0.2, color: Colors.white)),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(64),
-                                topRight: Radius.circular(64)),
-                            gradient: LinearGradient(
-                                colors: [Color(0xFF2B5876), Color(0xFF4E4376)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.centerRight),
-                          ),
+                      height: MediaQuery.of(context).size.height,
+                      top: MediaQuery.of(context).size.width / 1.5,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        // alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          border: Border.fromBorderSide(
+                              BorderSide(width: 0.2, color: Colors.white)),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(64),
+                              topRight: Radius.circular(64)),
+                          gradient: LinearGradient(
+                              colors: [Color(0xFF2B5876), Color(0xFF4E4376)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.centerRight),
+                        ),
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.width),
                           child: Column(
                             children: [
                               Container(
@@ -161,7 +165,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                                               begin: Alignment.topLeft,
                                               end: Alignment.centerRight)),
                                       child: Text(
-                                          moive.requireAge != 0
+                                          moive.requireAge != null
                                               ? moive.requireAge.toString()
                                               : '18+',
                                           style: const TextStyle(
@@ -220,10 +224,17 @@ class _MovieDetailsState extends State<MovieDetails> {
                               Container(
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 32, vertical: 16),
-                                  child: Text(
-                                    '${moive.description.substring(0, 150)}...',
-                                    // maxLines: 3,
-                                    style: const TextStyle(color: Colors.white),
+                                  child: ReadMoreText(
+                                    moive.description,
+                                    trimLines: 3,
+                                    colorClickableText: const Color(0xFFA1F3FE),
+                                    trimMode: TrimMode.Line,
+                                    trimCollapsedText: ' More',
+                                    trimExpandedText: ' Less',
+                                    style: const TextStyle(
+                                        fontSize: 14, color: Colors.white),
+                                    moreStyle: const TextStyle(
+                                        fontSize: 14, color: Color(0xFFA1F3FE)),
                                   )),
                               Container(
                                 padding:

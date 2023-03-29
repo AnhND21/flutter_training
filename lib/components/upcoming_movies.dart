@@ -73,13 +73,19 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
                               e.movieName
                           ? 1.0
                           : 0.5,
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(32)),
-                        child: CachedNetworkImage(
-                            height: 214.0,
-                            fit: BoxFit.cover,
-                            imageUrl: e.thumbnail),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/movie_detals',
+                              arguments: e);
+                        },
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(32)),
+                          child: CachedNetworkImage(
+                              height: 214.0,
+                              fit: BoxFit.cover,
+                              imageUrl: e.thumbnail),
+                        ),
                       ),
                     ),
                   );

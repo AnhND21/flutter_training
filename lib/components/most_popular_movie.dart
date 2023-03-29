@@ -68,8 +68,11 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/movie_detals',
-                                  arguments: i);
+                              _sliderIndex == widget.movieList.indexOf(i)
+                                  ? Navigator.pushNamed(
+                                      context, '/movie_detals',
+                                      arguments: i)
+                                  : {};
                             },
                             child: Stack(
                                 alignment: Alignment.bottomLeft,

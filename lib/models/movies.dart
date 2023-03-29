@@ -7,7 +7,7 @@ class Movies {
   String description = '';
   String mainActor = '';
   String category = '';
-  int? requireAge = 0;
+  int? requireAge;
   List<Actor>? actors = [];
 
   Movies({
@@ -17,7 +17,7 @@ class Movies {
     required this.description,
     required this.mainActor,
     required this.category,
-    this.requireAge = 0,
+    this.requireAge,
     this.actors,
   });
 }
