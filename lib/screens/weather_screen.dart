@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter_training/models/weather_hour.dart';
 import 'package:intl/intl.dart';
 import 'package:animated_widgets/animated_widgets.dart';
@@ -99,8 +98,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       enabled: _enabled,
                       duration: const Duration(milliseconds: 100),
                       values: [
-                        Size(dvWidth, dvHeight / 1.42),
-                        Size(dvWidth, dvWidth + 40),
+                        Size(dvWidth, dvHeight - (dvWidth / 1.6)),
+                        Size(dvWidth, dvWidth + 39),
                       ],
                       curve: Curves.linear,
                       child: Container(
@@ -172,7 +171,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                   ? [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 16),
+                                            horizontal: 16),
                                         child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
@@ -182,7 +181,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                           children: [
                                             Container(
                                               margin: const EdgeInsets.only(
-                                                  top: 32),
+                                                  top: 24),
                                               child: const Icon(
                                                 CupertinoIcons.cloud_sun_rain,
                                                 color: Colors.white,
@@ -238,7 +237,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                                       style: const TextStyle(
                                                         height: 1,
                                                         color: Colors.white,
-                                                        fontSize: 80,
+                                                        fontSize: 60,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -281,7 +280,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                         child: const Icon(
                                           CupertinoIcons.cloud_sun_rain,
                                           color: Colors.white,
-                                          size: 180,
+                                          size: 120,
                                         ),
                                       ),
                                       Container(

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -8,12 +10,14 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
+  int _bottomTabIndex = 0;
   List<String> list = <String>[
-    "Exercise 1",
-    'Exercise 2',
+    "Listing",
+    'Profile',
     'Movies',
     'Weather',
-    'Firebase Chat'
+    'Firebase Chat',
+    'Notes',
   ];
 
   void onNavigateToScreen(int index) {
@@ -31,6 +35,12 @@ class _RootScreenState extends State<RootScreen> {
       case 3:
         route = '/weather';
         break;
+      case 4:
+        route = '/chats';
+        break;
+      case 5:
+        route = '/notes';
+        break;
       default:
     }
 
@@ -42,10 +52,12 @@ class _RootScreenState extends State<RootScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          // backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           drawerEnableOpenDragGesture: true,
           appBar: AppBar(
-            leading: Container(),
+            leading: Container(
+              child: Icon(CupertinoIcons.bars),
+            ),
             title: const Text(
               'Flutter Mobile Traning',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -60,45 +72,107 @@ class _RootScreenState extends State<RootScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(children: <Widget>[
-                const SizedBox(
-                  height: 48,
-                ),
-                GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 24,
-                  childAspectRatio: 2,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(0),
-                  children: List.generate(list.length, (index) {
-                    return InkWell(
-                      onTap: () {
-                        onNavigateToScreen(index);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey.withOpacity(0.3),
-                            //     spreadRadius: 1,
-                            //     blurRadius: 30,
-                            //     offset: const Offset(1, 1),
-                            //   )
-                            // ],
-                            // color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        child: Text(list[index],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600)),
-                      ),
-                    );
-                  }),
-                )
-              ]),
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(0),
+                        itemCount: list.length,
+                        separatorBuilder: (context, index) {
+                          return Container(
+                            height: 24,
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              onNavigateToScreen(index);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 1,
+                                      blurRadius: 30,
+                                      offset: const Offset(1, 1),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8))),
+                              child: Row(
+                                children: [
+                                  const FlutterLogo(
+                                    size: 20,
+                                    curve: Curves.bounceIn,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Expanded(
+                                    child: Text(list[index],
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600)),
+                                  ),
+                                  const Icon(
+                                    CupertinoIcons.chevron_right,
+                                    size: 20,
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                  ]),
+            ),
+          ),
+          bottomNavigationBar: Container(
+            color: Colors.black,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              child: GNav(
+                  selectedIndex: _bottomTabIndex,
+                  curve: Curves.bounceIn,
+                  gap: 8,
+                  backgroundColor: Colors.black,
+                  color: Colors.white,
+                  activeColor: Colors.white,
+                  haptic: true,
+                  tabBorderRadius: 32,
+                  tabBackgroundColor: Colors.grey.withOpacity(0.3),
+                  padding: const EdgeInsets.all(16),
+                  onTabChange: (value) {
+                    setState(() {
+                      _bottomTabIndex = value;
+                    });
+                  },
+                  tabs: const [
+                    GButton(
+                      icon: Icons.home,
+                    ),
+                    GButton(
+                      icon: Icons.search,
+                    ),
+                    GButton(
+                      icon: Icons.star,
+                    ),
+                    GButton(
+                      icon: Icons.list_alt,
+                    ),
+                    GButton(
+                      icon: Icons.person_2_outlined,
+                    )
+                  ]),
             ),
           ),
         ));

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/models/location.dart';
@@ -129,35 +127,58 @@ class _WeatherLocationScreenState extends State<WeatherLocationScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(16))),
                       child: Row(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      lstLocation[index].cityName,
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    params.city == lstLocation[index].cityName
+                                        ? const Icon(
+                                            Icons.pin_drop_outlined,
+                                            size: 16,
+                                          )
+                                        : Container()
+                                  ],
+                                ),
+                                const Text(
+                                  '20°/22°',
+                                  style: TextStyle(
+                                      height: 1.2,
+                                      fontSize: 15,
+                                      color: Colors.black54),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: 100,
+                            alignment: Alignment.centerRight,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+                                  const Icon(
+                                    CupertinoIcons.sun_dust,
+                                    size: 30,
+                                  ),
                                   Text(
-                                    lstLocation[index].cityName,
+                                    lstLocation[index].desciption,
                                     style: const TextStyle(
-                                        color: Colors.black, fontSize: 18),
-                                  ),
-                                  const SizedBox(
-                                    width: 3,
-                                  ),
-                                  params.city == lstLocation[index].cityName
-                                      ? const Icon(
-                                          Icons.location_searching,
-                                          size: 16,
-                                        )
-                                      : Container()
-                                ],
-                              ),
-                              const Text(
-                                '20°/22°',
-                                style: TextStyle(
-                                    height: 1.2,
-                                    fontSize: 15,
-                                    color: Colors.black54),
-                              )
-                            ],
+                                        height: 1.5,
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ]),
                           )
                         ],
                       ),

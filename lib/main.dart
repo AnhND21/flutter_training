@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/core/theme_data.dart';
 import 'package:flutter_training/core/theme_provider.dart';
+import 'package:flutter_training/screens/chat/chat_screen.dart';
+import 'package:flutter_training/screens/chat/login_phone_screen.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
@@ -61,6 +63,8 @@ class _MyAppState extends State<MyApp> {
               '/weather': (context) => const WeatherScreen(),
               '/weather_setting': (context) => const WeatherSettingScreen(),
               '/weather_location': (context) => const WeatherLocationScreen(),
+              '/chats': (context) => const ChatScreen(),
+              '/login_phone': (context) => const LoginPhoneScreen(),
             },
           );
         },
