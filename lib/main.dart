@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_training/core/theme_data.dart';
 import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
-import 'package:flutter_training/screens/manage_location_screen.dart';
+import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
 import 'package:flutter_training/screens/profile_screen.dart';
@@ -61,7 +60,7 @@ class _MyAppState extends State<MyApp> {
               '/movie_detals': (context) => const MovieDetails(),
               '/weather': (context) => const WeatherScreen(),
               '/weather_setting': (context) => const WeatherSettingScreen(),
-              '/weather_location': (context) => const ManageLocationScreen(),
+              '/weather_location': (context) => const WeatherLocationScreen(),
             },
           );
         },
