@@ -98,8 +98,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       enabled: _enabled,
                       duration: const Duration(milliseconds: 100),
                       values: [
-                        Size(dvWidth, dvHeight - (dvWidth / 1.6)),
-                        Size(dvWidth, dvWidth + 39),
+                        Size(dvWidth, dvHeight - (dvWidth / 1.3)),
+                        Size(dvWidth, dvWidth + 10),
                       ],
                       curve: Curves.linear,
                       child: Container(

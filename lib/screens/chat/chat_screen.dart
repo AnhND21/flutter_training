@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/screens/chat/tabs/contact.dart';
+import 'package:flutter_training/screens/chat/tabs/message.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -9,66 +13,76 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  int _tabSelectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          alignment: Alignment.center,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset("assets/svgs/chat_splash.svg"),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 48, vertical: 24),
-                    child: Text(
-                      'Connect easily with your family and friends over countries',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              )),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Terms & Privacy Policy',
-                    style: TextStyle(color: Colors.black),
-                  )),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/login_phone');
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 32),
-                  padding: const EdgeInsets.all(16),
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF002DE3),
-                      borderRadius: BorderRadius.all(Radius.circular(32))),
-                  child: const Text(
-                    'Start Messaging',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15),
-                  ),
-                ),
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height,
+          child: renderTabSelected(context, _tabSelectedIndex),
+        ),
+      ),
+      bottomNavigationBar: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 8,
+                offset: const Offset(1, 1),
               )
             ],
           ),
-        ),
-      ),
+          child: GNav(
+              gap: 8,
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              activeColor: Colors.black,
+              haptic: true,
+              tabBorderRadius: 32,
+              tabBackgroundColor: Colors.black.withOpacity(0.1),
+              padding: const EdgeInsets.all(16),
+              selectedIndex: _tabSelectedIndex,
+              onTabChange: (value) {
+                setState(() {
+                  _tabSelectedIndex = value;
+                });
+              },
+              tabs: const <GButton>[
+                GButton(
+                  icon: CupertinoIcons.person_2,
+                  text: "Contact",
+                ),
+                GButton(
+                  icon: CupertinoIcons.chat_bubble,
+                  text: "Chat",
+                ),
+                GButton(
+                  icon: Icons.more_horiz,
+                  text: "More",
+                ),
+              ])),
     );
+  }
+}
+
+Widget renderTabSelected(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      return const ContactScreen();
+    case 1:
+      return const MessageScreen();
+    case 2:
+      return Container(
+        child: Text('More'),
+      );
+    default:
+      return Container();
   }
 }

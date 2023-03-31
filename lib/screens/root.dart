@@ -36,7 +36,7 @@ class _RootScreenState extends State<RootScreen> {
         route = '/weather';
         break;
       case 4:
-        route = '/chats';
+        route = '/chat_welcome';
         break;
       case 5:
         route = '/notes';
@@ -55,9 +55,7 @@ class _RootScreenState extends State<RootScreen> {
           backgroundColor: Colors.white,
           drawerEnableOpenDragGesture: true,
           appBar: AppBar(
-            leading: Container(
-              child: Icon(CupertinoIcons.bars),
-            ),
+            leading: const Icon(CupertinoIcons.bars),
             title: const Text(
               'Flutter Mobile Traning',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

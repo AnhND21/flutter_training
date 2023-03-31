@@ -73,6 +73,9 @@ flutter:
     - assets/svgs/tvseries.svg
     - assets/svgs/theatre.svg
     - assets/svgs/chat_splash.svg
+    - assets/images/flag_vn.png
+    - assets/svgs/chat_add.svg
+    - assets/svgs/menu_checked.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
