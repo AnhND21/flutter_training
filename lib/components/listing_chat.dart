@@ -77,15 +77,15 @@ class ListingChat extends StatelessWidget {
                       style: TextStyle(color: Colors.grey),
                     ),
                     Container(
-                      width: 16,
                       height: 16,
                       margin: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       alignment: Alignment.center,
                       decoration: const BoxDecoration(
                           color: Color(0xFFD2D5F9),
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: const Text(
-                        '2',
+                        '99+',
                         style: TextStyle(
                             fontSize: 10, fontWeight: FontWeight.w600),
                       ),

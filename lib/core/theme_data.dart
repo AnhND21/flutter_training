@@ -6,7 +6,7 @@ class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return isDarkTheme
         ? ThemeData(
-            fontFamily: 'Mukta',
+            fontFamily: 'Mulish',
             primaryColor: Colors.black,
             brightness: Brightness.dark,
             appBarTheme: const AppBarTheme(
@@ -17,11 +17,11 @@ class Styles {
                 ),
                 titleTextStyle: TextStyle(
                     fontSize: 20,
-                    fontFamily: 'Mukta',
+                    fontFamily: 'Mulish',
                     fontWeight: FontWeight.w600,
                     color: Colors.white)))
         : ThemeData(
-            fontFamily: 'Mukta',
+            fontFamily: 'Mulish',
             primaryColor: Colors.white,
             brightness: Brightness.light,
             appBarTheme: const AppBarTheme(
@@ -32,7 +32,7 @@ class Styles {
                 color: Colors.white,
                 titleTextStyle: TextStyle(
                     fontSize: 20,
-                    fontFamily: 'Mukta',
+                    fontFamily: 'Mulish',
                     fontWeight: FontWeight.w600,
                     color: Colors.black)));
   }
