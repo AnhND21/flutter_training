@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/screens/chat/tabs/contact.dart';
 import 'package:flutter_training/screens/chat/tabs/message.dart';
+import 'package:flutter_training/screens/chat/tabs/setting_chat.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -79,9 +80,7 @@ Widget renderTabSelected(BuildContext context, int index) {
     case 1:
       return const MessageScreen();
     case 2:
-      return Container(
-        child: Text('More'),
-      );
+      return const SettingChatScreen();
     default:
       return Container();
   }

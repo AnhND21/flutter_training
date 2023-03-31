@@ -7,7 +7,7 @@ class ListingStory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
+      height: 120,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           border: Border(
@@ -45,9 +45,12 @@ class ListingStory extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Text(
-                      'Your Story',
-                      style: TextStyle(fontSize: 16),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Your Story',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     )
                   ],
                 ),
@@ -89,9 +92,12 @@ class ListingStory extends StatelessWidget {
                           ),
                         )),
                   ),
-                  const Text(
-                    'Rose',
-                    style: TextStyle(fontSize: 16),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Rose',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   )
                 ],
               ),
