@@ -6,6 +6,7 @@ import 'package:flutter_training/screens/chat/chat_welcome_screen.dart';
 import 'package:flutter_training/screens/chat/confirm_otp_screen.dart';
 import 'package:flutter_training/screens/chat/create_profile_screen.dart';
 import 'package:flutter_training/screens/chat/login_phone_screen.dart';
+import 'package:flutter_training/screens/chat/message_details.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
@@ -71,6 +72,7 @@ class _MyAppState extends State<MyApp> {
               '/login_phone': (context) => const LoginPhoneScreen(),
               '/confirm_otp': (context) => const ConfirmOTPScreen(),
               '/create_profile': (context) => const CreateProfileScreen(),
+              '/message_detail': (context) => const MessageDetailScreen(),
             },
           );
         },
