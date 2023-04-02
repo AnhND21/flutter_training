@@ -87,10 +87,12 @@ class _WeatherLocationScreenState extends State<WeatherLocationScreen> {
                 child: TextFormField(
                   style: const TextStyle(fontWeight: FontWeight.w500),
                   decoration: const InputDecoration(
-                    hintStyle: TextStyle(height: 2),
                     filled: true,
-                    prefixIcon:
-                        Icon(CupertinoIcons.search, color: Colors.black),
+                    prefixIcon: Icon(
+                      CupertinoIcons.search,
+                      color: Colors.black,
+                    ),
+                    hintStyle: TextStyle(color: Colors.grey),
                     fillColor: Colors.white,
                     hintText: 'Search your city',
                     isDense: true,

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class Styles {
@@ -9,6 +7,7 @@ class Styles {
             fontFamily: 'Mulish',
             primaryColor: Colors.black,
             brightness: Brightness.dark,
+            scaffoldBackgroundColor: Colors.black,
             appBarTheme: const AppBarTheme(
                 elevation: 0.0,
                 color: Colors.black,
@@ -25,6 +24,7 @@ class Styles {
             fontFamily: 'Mulish',
             primaryColor: Colors.white,
             brightness: Brightness.light,
+            scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
                 iconTheme: IconThemeData(
                   color: Colors.black,

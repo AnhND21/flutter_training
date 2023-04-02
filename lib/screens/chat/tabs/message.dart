@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_training/components/listing_chat.dart';
 import 'package:flutter_training/components/listing_story.dart';
+import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/models/chat.dart';
 import 'package:flutter_training/models/story.dart';
 
@@ -16,7 +17,7 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   List<Chat> lstChat = <Chat>[];
   List<Story> stories = <Story>[];
-
+  DarkThemeProvider darkThemeProvider = DarkThemeProvider();
   @override
   void initState() {
     super.initState();
@@ -58,7 +59,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text('Chats'),
           titleSpacing: 24,
@@ -68,14 +69,22 @@ class _MessageScreenState extends State<MessageScreen> {
           actions: <Widget>[
             InkWell(
               onTap: () {},
-              child: SvgPicture.asset("assets/svgs/chat_add.svg"),
+              child: SvgPicture.asset(
+                "assets/svgs/chat_add.svg",
+                color:
+                    darkThemeProvider.darkTheme ? Colors.black : Colors.white,
+              ),
             ),
             const SizedBox(
               width: 16,
             ),
             InkWell(
               onTap: () {},
-              child: SvgPicture.asset("assets/svgs/menu_checked.svg"),
+              child: SvgPicture.asset(
+                "assets/svgs/menu_checked.svg",
+                color:
+                    darkThemeProvider.darkTheme ? Colors.black : Colors.white,
+              ),
             ),
             const SizedBox(
               width: 24,
@@ -96,7 +105,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     child: TextFormField(
                       style: const TextStyle(fontWeight: FontWeight.w500),
                       decoration: const InputDecoration(
-                        hintStyle: TextStyle(height: 2),
+                        hintStyle: TextStyle(height: 1, color: Colors.black),
                         filled: true,
                         prefixIcon:
                             Icon(CupertinoIcons.search, color: Colors.black),

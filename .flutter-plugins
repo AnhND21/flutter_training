@@ -1,4 +1,10 @@
 # This is a generated file; do not edit or check into version control.
+cloud_firestore=/Users/duyanh/.pub-cache/hosted/pub.dev/cloud_firestore-4.5.0/
+cloud_firestore_web=/Users/duyanh/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.4.0/
+firebase_auth=/Users/duyanh/.pub-cache/hosted/pub.dev/firebase_auth-4.4.0/
+firebase_auth_web=/Users/duyanh/.pub-cache/hosted/pub.dev/firebase_auth_web-5.3.0/
+firebase_core=/Users/duyanh/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/
+firebase_core_web=/Users/duyanh/.pub-cache/hosted/pub.dev/firebase_core_web-2.3.0/
 flutter_inappwebview=/Users/duyanh/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.7.2+3/
 path_provider=/Users/duyanh/.pub-cache/hosted/pub.dev/path_provider-2.0.14/
 path_provider_android=/Users/duyanh/.pub-cache/hosted/pub.dev/path_provider_android-2.0.24/

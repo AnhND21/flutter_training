@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_training/core/theme_data.dart';
 import 'package:flutter_training/core/theme_provider.dart';
@@ -7,6 +9,8 @@ import 'package:flutter_training/screens/chat/confirm_otp_screen.dart';
 import 'package:flutter_training/screens/chat/create_profile_screen.dart';
 import 'package:flutter_training/screens/chat/login_phone_screen.dart';
 import 'package:flutter_training/screens/chat/message_details.dart';
+import 'package:flutter_training/screens/chat/signin_with_email.dart';
+import 'package:flutter_training/screens/chat/signup_with_email.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
@@ -17,8 +21,11 @@ import 'package:flutter_training/screens/splash_screen.dart';
 import 'package:flutter_training/screens/weather_screen.dart';
 import 'package:flutter_training/screens/weather_setting_screen.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -73,6 +80,8 @@ class _MyAppState extends State<MyApp> {
               '/confirm_otp': (context) => const ConfirmOTPScreen(),
               '/create_profile': (context) => const CreateProfileScreen(),
               '/message_detail': (context) => const MessageDetailScreen(),
+              '/signup_email': (context) => const SignUpWithEmailScreen(),
+              '/sigin_email': (context) => const SignInWithEmailScreen(),
             },
           );
         },

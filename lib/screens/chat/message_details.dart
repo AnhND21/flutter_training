@@ -66,7 +66,7 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
   Widget build(BuildContext context) {
     final params = ModalRoute.of(context)!.settings.arguments as Chat;
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           params.name,
@@ -116,8 +116,8 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
             Container(
               height: 48,
               decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
+                  // color: Colors.white,
+                  ),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
@@ -143,7 +143,9 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
                           onChangeMessage(value);
                         },
                         decoration: const InputDecoration(
-                            hintText: "Aa...", border: InputBorder.none),
+                            hintStyle: TextStyle(color: Colors.grey),
+                            hintText: "Aa...",
+                            border: InputBorder.none),
                       ),
                     ),
                   ),

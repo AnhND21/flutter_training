@@ -12,7 +12,6 @@ class _SettingChatScreenState extends State<SettingChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text('More'),
           titleSpacing: 24,
@@ -37,7 +36,10 @@ class _SettingChatScreenState extends State<SettingChatScreen> {
                             color: Color(0xFFEDEDED),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(25))),
-                        child: const Icon(Icons.person_2_outlined),
+                        child: const Icon(
+                          Icons.person_2_outlined,
+                          color: Colors.grey,
+                        ),
                       ),
                       Expanded(
                           child: Padding(

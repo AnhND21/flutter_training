@@ -25,6 +25,10 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
     });
   }
 
+  void navigateSignUpEmail() {
+    Navigator.pushNamed(context, '/signup_email');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +45,8 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Container(
-          color: Colors.white,
+        child: SizedBox(
+          // color: Colors.white,
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -58,7 +62,7 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 64),
+                    padding: EdgeInsets.symmetric(horizontal: 48, vertical: 16),
                     child: Text(
                       'Please confirm your country code and enter your phone number',
                       style: TextStyle(fontSize: 18),
@@ -106,25 +110,33 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
                         ),
                         Flexible(
                             flex: 1,
-                            child: TextFormField(
-                              autocorrect: false,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
-                              initialValue: phone,
-                              onChanged: (text) => onPhoneNumerChange(text),
-                              decoration: const InputDecoration(
-                                hintStyle: TextStyle(
-                                    height: 2, color: Color(0xFFADB5BD)),
-                                filled: true,
-                                fillColor: Color(0xFFF7F7FC),
-                                hintText: 'Phone Number',
-                                isDense: true,
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8))),
+                            child: Container(
+                              height: 48,
+                              alignment: Alignment.center,
+                              decoration: const BoxDecoration(
+                                  color: Color(0xFFF7F7FC),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              child: TextFormField(
+                                autocorrect: false,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                                initialValue: phone,
+                                onChanged: (text) => onPhoneNumerChange(text),
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: const InputDecoration(
+                                  hintStyle: TextStyle(
+                                      height: 1, color: Color(0xFFADB5BD)),
+                                  filled: true,
+                                  fillColor: Color(0xFFF7F7FC),
+                                  hintText: 'Phone Number',
+                                  isDense: true,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8))),
+                                ),
                               ),
                             )),
                       ],
@@ -132,14 +144,27 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
                   )
                 ],
               )),
+              TextButton(
+                  onPressed: () {
+                    navigateSignUpEmail();
+                  },
+                  child: const Text(
+                    'Sign up with email',
+                    style: TextStyle(
+                      color: Color(0xFF002DE3),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )),
               InkWell(
                 onTap: () {
-                  phone.isNotEmpty
-                      ? Navigator.pushNamed(context, '/confirm_otp',
-                          arguments: phone.isNotEmpty
-                              ? LoginOTPAgruments(phone: phone)
-                              : {})
-                      : {};
+                  Navigator.pushNamed(context, '/confirm_otp',
+                      arguments: LoginOTPAgruments(phone: phone));
+                  // phone.isNotEmpty
+                  //     ? Navigator.pushNamed(context, '/confirm_otp',
+                  //         arguments: phone.isNotEmpty
+                  //             ? LoginOTPAgruments(phone: phone)
+                  //             : {})
+                  //     : {};
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),

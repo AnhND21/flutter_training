@@ -193,15 +193,8 @@ class _MoviesScreenState extends State<MoviesScreen> {
                                     width: 0.5, color: Colors.white)),
                             child: TextFormField(
                               textInputAction: TextInputAction.next,
-                              textAlignVertical: TextAlignVertical.bottom,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                              // obscuringCharacter: "*",
                               decoration: InputDecoration(
                                 suffixIcon: Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 4),
                                   decoration: const BoxDecoration(
                                       border: Border(
                                           left: BorderSide(
@@ -217,12 +210,13 @@ class _MoviesScreenState extends State<MoviesScreen> {
                                 prefixIcon: const Icon(
                                   CupertinoIcons.search,
                                   color: Colors.white,
-                                  size: 22,
+                                  // size: 22,
                                 ),
-                                filled: true,
                                 hintText: 'Search',
                                 hintStyle: const TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    height: 1),
                                 isDense: true,
                                 border: const OutlineInputBorder(
                                     borderSide: BorderSide.none,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/screens/chat/tabs/contact.dart';
 import 'package:flutter_training/screens/chat/tabs/message.dart';
 import 'package:flutter_training/screens/chat/tabs/setting_chat.dart';
@@ -14,38 +15,32 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  DarkThemeProvider darkThemeProvider = DarkThemeProvider();
   int _tabSelectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
-          color: Colors.white,
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: renderTabSelected(context, _tabSelectedIndex),
         ),
       ),
       bottomNavigationBar: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 8,
-                offset: const Offset(1, 1),
-              )
-            ],
-          ),
+          decoration: const BoxDecoration(
+              border:
+                  Border(top: BorderSide(width: 0.5, color: Colors.black12))),
           child: GNav(
               gap: 8,
-              backgroundColor: Colors.white,
-              color: Colors.black,
-              activeColor: Colors.black,
-              haptic: true,
+              // backgroundColor: darkThemeProvider.darkTheme == false
+              //     ? Colors.black
+              //     : Colors.white,
+              // color: Colors.black,
+              // activeColor: Colors.black,
+              // haptic: true,
               padding: const EdgeInsets.all(16),
               selectedIndex: _tabSelectedIndex,
               onTabChange: (value) {

@@ -41,7 +41,7 @@ class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          color: Colors.white,
+          // color: Colors.white,
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Column(

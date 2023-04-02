@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/core/theme_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -12,6 +13,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
   late VideoPlayerController _controller;
   late YoutubePlayerController _youtubeController;
 
@@ -50,15 +52,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(16),
               margin: const EdgeInsets.only(top: 64),
               decoration: BoxDecoration(
+                  boxShadow: themeChangeProvider.darkTheme == false
+                      ? [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 30,
+                            offset: const Offset(1, 1),
+                          )
+                        ]
+                      : [],
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 30,
-                      offset: const Offset(1, 1),
-                    )
-                  ],
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Row(
                 children: <Widget>[
@@ -85,9 +89,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: const <Widget>[
                           Text(
                             'Avatar: The way of Water',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
-                          Text('avatar.com.vn'),
+                          Text('avatar.com.vn',
+                              style: TextStyle(color: Colors.black)),
                         ],
                       ))
                 ],
@@ -99,15 +106,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
+                  boxShadow: themeChangeProvider.darkTheme == false
+                      ? [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 30,
+                            offset: const Offset(1, 1),
+                          )
+                        ]
+                      : [],
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 30,
-                      offset: const Offset(1, 1),
-                    )
-                  ],
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Container(
                 margin: const EdgeInsets.only(left: 8),
@@ -118,7 +127,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SvgPicture.asset("assets/svgs/faq.svg"),
                     Container(
                         margin: const EdgeInsets.only(left: 8, top: 4),
-                        child: const Text("FAQ"))
+                        child: const Text(
+                          "FAQ",
+                          style: TextStyle(color: Colors.black),
+                        ))
                   ],
                 ),
               ),
@@ -129,15 +141,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
+                  boxShadow: themeChangeProvider.darkTheme == false
+                      ? [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 30,
+                            offset: const Offset(1, 1),
+                          )
+                        ]
+                      : [],
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 30,
-                      offset: const Offset(1, 1),
-                    )
-                  ],
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Container(
                 margin: const EdgeInsets.only(left: 8),
@@ -148,7 +162,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SvgPicture.asset("assets/svgs/contact.svg"),
                     Container(
                         margin: const EdgeInsets.only(left: 8, top: 4),
-                        child: const Text("Contact"))
+                        child: const Text(
+                          "Contact",
+                          style: TextStyle(color: Colors.black),
+                        ))
                   ],
                 ),
               ),
@@ -159,15 +176,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
+                  boxShadow: themeChangeProvider.darkTheme == false
+                      ? [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 30,
+                            offset: const Offset(1, 1),
+                          )
+                        ]
+                      : [],
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 30,
-                      offset: const Offset(1, 1),
-                    )
-                  ],
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Container(
                 margin: const EdgeInsets.only(left: 8),
@@ -178,7 +197,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SvgPicture.asset("assets/svgs/term.svg"),
                     Container(
                         margin: const EdgeInsets.only(left: 8, top: 4),
-                        child: const Text("Term & Conditions"))
+                        child: const Text(
+                          "Term & Conditions",
+                          style: TextStyle(color: Colors.black),
+                        ))
                   ],
                 ),
               ),

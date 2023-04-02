@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/theme_provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class RootScreen extends StatefulWidget {
@@ -10,6 +11,7 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
+  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
   int _bottomTabIndex = 0;
   List<String> list = <String>[
     "Listing",
@@ -52,7 +54,7 @@ class _RootScreenState extends State<RootScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           drawerEnableOpenDragGesture: true,
           appBar: AppBar(
             leading: const Icon(CupertinoIcons.bars),
@@ -96,14 +98,17 @@ class _RootScreenState extends State<RootScreen> {
                             child: Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 1,
-                                      blurRadius: 30,
-                                      offset: const Offset(1, 1),
-                                    )
-                                  ],
+                                  boxShadow: themeChangeProvider.darkTheme ==
+                                          false
+                                      ? [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            spreadRadius: 1,
+                                            blurRadius: 30,
+                                            offset: const Offset(1, 1),
+                                          )
+                                        ]
+                                      : [],
                                   color: Colors.white,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(8))),
@@ -120,7 +125,8 @@ class _RootScreenState extends State<RootScreen> {
                                     child: Text(list[index],
                                         style: const TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black)),
                                   ),
                                   const Icon(
                                     CupertinoIcons.chevron_right,

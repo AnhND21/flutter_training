@@ -58,7 +58,7 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Contact'),
         titleSpacing: 24,
@@ -79,35 +79,32 @@ class _ContactScreenState extends State<ContactScreen> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(
-                      top: 24, left: 24, right: 24, bottom: 16),
-                  child: TextFormField(
-                    style: const TextStyle(fontWeight: FontWeight.w500),
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(height: 2),
-                      filled: true,
-                      prefixIcon:
-                          Icon(CupertinoIcons.search, color: Colors.black),
-                      fillColor: Color(0xFFF7F7FC),
-                      hintText: 'Search...',
-                      isDense: true,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                    ),
-                  )),
-              Flexible(
-                child: renderListContact(context, contacts),
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(
+                    top: 24, left: 24, right: 24, bottom: 16),
+                child: TextFormField(
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  decoration: const InputDecoration(
+                    hintStyle: TextStyle(height: 1, color: Colors.black),
+                    filled: true,
+                    prefixIcon:
+                        Icon(CupertinoIcons.search, color: Colors.black),
+                    fillColor: Color(0xFFF7F7FC),
+                    hintText: 'Search...',
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.circular(16))),
+                  ),
+                )),
+            Flexible(
+              child: renderListContact(context, contacts),
+            )
+          ],
         ),
       ),
     );
