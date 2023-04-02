@@ -1,5 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/screens/chat/model/user_chat.dart';
 
 class SettingChatScreen extends StatefulWidget {
   const SettingChatScreen({super.key});
@@ -9,6 +15,29 @@ class SettingChatScreen extends StatefulWidget {
 }
 
 class _SettingChatScreenState extends State<SettingChatScreen> {
+  User? userInfo = FirebaseAuth.instance.currentUser;
+  final CollectionReference _userCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  UserChat? user;
+
+  @override
+  void initState() {
+    super.initState();
+    // getUserInfo();
+  }
+
+  Future<void> getUserInfo() async {
+    _userCollection.doc((userInfo!.uid)).get().then((DocumentSnapshot value) {
+      if (value.exists) {
+        final credentials = UserChat.fromSnapshot(value);
+        setState(() {
+          user = credentials;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,13 +75,13 @@ class _SettingChatScreenState extends State<SettingChatScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[
+                          children: <Widget>[
                             Text(
-                              'Duy Anh',
-                              style: TextStyle(
+                              'a',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 15),
                             ),
-                            Text(
+                            const Text(
                               '0338889999',
                               style: TextStyle(height: 1.5, color: Colors.grey),
                             )

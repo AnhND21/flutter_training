@@ -30,19 +30,20 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   Future<void> onCreateUser() async {
     try {
-      final params = ModalRoute.of(context)!.settings.arguments as UserInfo;
-      // await FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(params.user!.uid)
-      //     .set({
-      //   'firstName': firstName,
-      //   'lastName': lastName,
-      //   'photoURL': params.user!.photoURL,
-      //   'phone': params.user!.phoneNumber,
-      //   'email': params.user!.email,
-      //   'emailVerified': params.user!.emailVerified,
-      //   'providerData': params.user!.providerData,
-      // }).then((_) => {navigateToHomeChat()});
+      final params =
+          ModalRoute.of(context)!.settings.arguments as UserCredential;
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(params.user!.uid)
+          .set({
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': params.user!.email,
+        'uid': params.user!.uid,
+        'phoneNumber': params.user!.phoneNumber,
+        'photoURL': params.user!.photoURL,
+      }).then((_) => {navigateToHomeChat()});
     } on FirebaseException catch (e) {
       log(e.toString());
     }
@@ -115,6 +116,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                         child: TextFormField(
                           autocorrect: false,
                           style: const TextStyle(fontWeight: FontWeight.w500),
+                          initialValue: firstName,
+                          onChanged: (value) {
+                            setFirstName(value);
+                          },
                           decoration: const InputDecoration(
                             hintStyle:
                                 TextStyle(height: 2, color: Color(0xFFADB5BD)),
@@ -138,6 +143,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
                           autocorrect: false,
+                          initialValue: lastName,
+                          onChanged: (value) {
+                            setLastName(value);
+                          },
                           style: const TextStyle(fontWeight: FontWeight.w500),
                           decoration: const InputDecoration(
                             hintStyle:

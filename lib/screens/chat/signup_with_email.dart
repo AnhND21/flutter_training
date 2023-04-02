@@ -25,8 +25,7 @@ class _SignUpWithEmailScreenState extends State<SignUpWithEmailScreen> {
   }
 
   void navigateToCreateProfile(UserCredential userCredential) {
-    Navigator.pushNamed(context, '/create_profile',
-        arguments: userCredential.user);
+    Navigator.pushNamed(context, '/create_profile', arguments: userCredential);
   }
 
   Future<UserCredential?> onSignUp() async {

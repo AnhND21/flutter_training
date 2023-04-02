@@ -9,6 +9,7 @@ import 'package:flutter_training/screens/chat/confirm_otp_screen.dart';
 import 'package:flutter_training/screens/chat/create_profile_screen.dart';
 import 'package:flutter_training/screens/chat/login_phone_screen.dart';
 import 'package:flutter_training/screens/chat/message_details.dart';
+import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
 import 'package:flutter_training/screens/chat/signin_with_email.dart';
 import 'package:flutter_training/screens/chat/signup_with_email.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
@@ -53,10 +54,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<DarkThemeProvider>(
-      create: (_) {
-        return themeChangeProvider;
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<DarkThemeProvider>(
+          create: (_) {
+            return themeChangeProvider;
+          },
+        ),
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) {
+            return AuthProvider();
+          },
+        )
+      ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, value, child) {
           return MaterialApp(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,15 +18,19 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
   int _tabSelectedIndex = 1;
+  late final FirebaseAuth auth;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: renderTabSelected(context, _tabSelectedIndex),
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: SafeArea(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: renderTabSelected(context, _tabSelectedIndex),
+          ),
         ),
       ),
       bottomNavigationBar: Container(

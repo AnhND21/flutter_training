@@ -1,0 +1,109 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+class UserChat {
+  final String? displayName;
+  final String email;
+  final String? phoneNumer;
+  final String uid;
+  final String firstName;
+  final String? lastName;
+  final String? photoURL;
+
+  UserChat({
+    this.displayName,
+    required this.email,
+    this.phoneNumer,
+    required this.uid,
+    required this.firstName,
+    this.lastName,
+    this.photoURL,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'displayName': displayName,
+      'email': email,
+      'phoneNumer': phoneNumer,
+      'uid': uid,
+      'firstName': firstName,
+      'lastName': lastName,
+      'photoURL': photoURL,
+    };
+  }
+
+  factory UserChat.fromSnapshot(DocumentSnapshot snapshot) {
+    return UserChat.fromMap(
+        json.decode(snapshot.data().toString()) as Map<String, dynamic>);
+  }
+
+  factory UserChat.fromMap(Map<String, dynamic> map) {
+    return UserChat(
+      displayName:
+          map['displayName'] != null ? map['displayName'] as String : null,
+      email: map['email'] as String,
+      phoneNumer:
+          map['phoneNumer'] != null ? map['phoneNumer'] as String : null,
+      uid: map['uid'] as String,
+      firstName: map['firstName'] as String,
+      lastName: map['lastName'] != null ? map['lastName'] as String : null,
+      photoURL: map['photoURL'] != null ? map['photoURL'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UserChat.fromJson(String source) =>
+      UserChat.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  UserChat copyWith({
+    String? displayName,
+    String? email,
+    String? phoneNumer,
+    String? uid,
+    String? firstName,
+    String? lastName,
+    String? photoURL,
+  }) {
+    return UserChat(
+      displayName: displayName ?? this.displayName,
+      email: email ?? this.email,
+      phoneNumer: phoneNumer ?? this.phoneNumer,
+      uid: uid ?? this.uid,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      photoURL: photoURL ?? this.photoURL,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'UserChat(displayName: $displayName, email: $email, phoneNumer: $phoneNumer, uid: $uid, firstName: $firstName, lastName: $lastName, photoURL: $photoURL)';
+  }
+
+  @override
+  bool operator ==(covariant UserChat other) {
+    if (identical(this, other)) return true;
+
+    return other.displayName == displayName &&
+        other.email == email &&
+        other.phoneNumer == phoneNumer &&
+        other.uid == uid &&
+        other.firstName == firstName &&
+        other.lastName == lastName &&
+        other.photoURL == photoURL;
+  }
+
+  @override
+  int get hashCode {
+    return displayName.hashCode ^
+        email.hashCode ^
+        phoneNumer.hashCode ^
+        uid.hashCode ^
+        firstName.hashCode ^
+        lastName.hashCode ^
+        photoURL.hashCode;
+  }
+}
