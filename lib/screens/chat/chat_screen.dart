@@ -14,7 +14,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  int _tabSelectedIndex = 0;
+  int _tabSelectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -46,8 +46,6 @@ class _ChatScreenState extends State<ChatScreen> {
               color: Colors.black,
               activeColor: Colors.black,
               haptic: true,
-              tabBorderRadius: 32,
-              tabBackgroundColor: Colors.black.withOpacity(0.1),
               padding: const EdgeInsets.all(16),
               selectedIndex: _tabSelectedIndex,
               onTabChange: (value) {

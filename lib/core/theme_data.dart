@@ -16,6 +16,7 @@ class Styles {
                   color: Colors.white,
                 ),
                 titleTextStyle: TextStyle(
+                    height: 1,
                     fontSize: 20,
                     fontFamily: 'Mulish',
                     fontWeight: FontWeight.w600,
@@ -31,6 +32,7 @@ class Styles {
                 elevation: 0.0,
                 color: Colors.white,
                 titleTextStyle: TextStyle(
+                    height: 1,
                     fontSize: 20,
                     fontFamily: 'Mulish',
                     fontWeight: FontWeight.w600,

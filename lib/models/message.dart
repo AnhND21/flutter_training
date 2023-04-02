@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Message {
   final String? content;
@@ -6,12 +10,13 @@ class Message {
   final List<Photo>? photos;
   final int senderId;
 
-  Message(
-      {this.content,
-      this.photos,
-      required this.createdAt,
-      required this.senderId,
-      required this.status});
+  Message({
+    this.content,
+    required this.createdAt,
+    required this.status,
+    this.photos,
+    required this.senderId,
+  });
 }
 
 class Photo {

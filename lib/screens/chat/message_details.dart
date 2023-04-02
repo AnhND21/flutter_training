@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/components/list_message.dart';
+import 'package:flutter_training/models/chat.dart';
 import 'package:flutter_training/models/message.dart';
 
 class MessageDetailScreen extends StatefulWidget {
@@ -13,21 +14,45 @@ class MessageDetailScreen extends StatefulWidget {
 class _MessageDetailScreenState extends State<MessageDetailScreen> {
   String message = '';
   List<Message> data = <Message>[];
+  List<Photo> photos = <Photo>[];
 
   @override
   void initState() {
     super.initState();
+    photos.addAll([
+      Photo(
+          url:
+              'https://znews-photo.zingcdn.me/w660/Uploaded/bzwvopcg/2021_02_12/bl.jpg',
+          name: 'name.jpg',
+          type: 'jpg')
+    ]);
     data.addAll([
       Message(
           createdAt: DateTime.now().toString(),
           senderId: 1,
           status: 1,
-          content: 'Create a DateTime object by using one of the constructors'),
+          content: 'Create a DateTime'),
+      Message(
+          createdAt: DateTime.now().toString(),
+          senderId: 1,
+          status: 1,
+          content: 'Create a DateTime'),
+      Message(
+          createdAt: DateTime.now().toString(),
+          senderId: 1,
+          status: 1,
+          content: 'Create a DateTime'),
       Message(
           createdAt: DateTime.now().toString(),
           senderId: 2,
           status: 1,
-          content: 'Create a DateTime object by using one of the constructors'),
+          content: 'Create a DateTime'),
+      Message(
+          createdAt: DateTime.now().toString(),
+          senderId: 2,
+          status: 1,
+          photos: photos,
+          content: 'Create a DateTime object by one of the constructors'),
     ]);
   }
 
@@ -39,10 +64,13 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final params = ModalRoute.of(context)!.settings.arguments as Chat;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Name of User'),
+        title: Text(
+          params.name,
+        ),
         titleSpacing: 0,
         centerTitle: false,
         leading: InkWell(
@@ -61,7 +89,7 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
           ),
           InkWell(
             onTap: () {},
-            child: const Icon(CupertinoIcons.bars),
+            child: const Icon(CupertinoIcons.bars, size: 28),
           ),
           const SizedBox(
             width: 24,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/models/chat.dart';
+import 'package:intl/intl.dart';
 
 class ListingChat extends StatelessWidget {
-  const ListingChat({super.key});
+  final List<Chat> data;
+  const ListingChat({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +18,8 @@ class ListingChat extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/message_detail',
-                );
+                Navigator.pushNamed(context, '/message_detail',
+                    arguments: data[index]);
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,7 +33,7 @@ class ListingChat extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
                         child: Image.network(
-                          'https://ss-ava.saostar.vn/w800/pc/1679385212182/saostar-p8xo8nmmug38yecr.png',
+                          data[index].avatar.toString(),
                           fit: BoxFit.cover,
                           width: 48,
                           height: 48,
@@ -62,17 +63,17 @@ class ListingChat extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
-                        SizedBox(
+                      children: <Widget>[
+                        const SizedBox(
                           height: 4,
                         ),
                         Text(
-                          'Athalia Putri',
-                          style: TextStyle(fontSize: 18, height: 1),
+                          data[index].name,
+                          style: const TextStyle(fontSize: 18, height: 1),
                         ),
                         Text(
-                          'Last message sent----',
-                          style: TextStyle(color: Colors.grey, height: 2),
+                          data[index].lastMessage ?? 'Sent a message',
+                          style: const TextStyle(color: Colors.grey, height: 2),
                           maxLines: 1,
                         )
                       ],
@@ -81,24 +82,31 @@ class ListingChat extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text(
-                        'Today',
-                        style: TextStyle(color: Colors.grey),
+                      Text(
+                        DateFormat('HH:mm a')
+                            .format(DateTime.parse(data[index].sentAt)),
+                        style: const TextStyle(color: Colors.grey),
                       ),
-                      Container(
-                        height: 16,
-                        margin: const EdgeInsets.only(top: 8),
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                            color: Color(0xFFD2D5F9),
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        child: const Text(
-                          '99+',
-                          style: TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.w600),
-                        ),
-                      )
+                      data[index].messageUnread != null
+                          ? Container(
+                              height: 16,
+                              margin: const EdgeInsets.only(top: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              alignment: Alignment.center,
+                              decoration: const BoxDecoration(
+                                  color: Color(0xFFD2D5F9),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              child: Text(
+                                data[index].messageUnread.toString(),
+                                style: const TextStyle(
+                                    fontSize: 10, fontWeight: FontWeight.w600),
+                              ),
+                            )
+                          : Container(
+                              height: 16,
+                            )
                     ],
                   )
                 ],
@@ -111,7 +119,7 @@ class ListingChat extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 12),
             );
           },
-          itemCount: 10),
+          itemCount: data.length),
     );
   }
 }
