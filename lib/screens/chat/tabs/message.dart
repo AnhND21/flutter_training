@@ -3,10 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_training/components/listing_chat.dart';
 import 'package:flutter_training/components/listing_story.dart';
 import 'package:flutter_training/core/theme_provider.dart';
-import 'package:flutter_training/models/chat.dart';
 import 'package:flutter_training/models/story.dart';
 import 'package:flutter_training/screens/chat/tabs/contact.dart';
 
@@ -86,11 +84,14 @@ class _MessageScreenState extends State<MessageScreen> {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
-                return const Text('Something went wrong');
+                return const Center(child: Text('Something went wrong'));
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text("Loading");
+                return const Center(
+                    child: CircularProgressIndicator(
+                  strokeWidth: 1,
+                ));
               }
               return Column(
                 children: [

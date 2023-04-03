@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
               '/login_phone': (context) => const LoginPhoneScreen(),
               '/confirm_otp': (context) => const ConfirmOTPScreen(),
               '/create_profile': (context) => const CreateProfileScreen(),
-              '/message_detail': (context) => const MessageDetailScreen(),
+              // '/message_detail': (context) => const MessageDetailScreen(),
               '/signup_email': (context) => const SignUpWithEmailScreen(),
               '/sigin_email': (context) => const SignInWithEmailScreen(),
               '/update_profile': (context) => const UpdateProfileScreen(),

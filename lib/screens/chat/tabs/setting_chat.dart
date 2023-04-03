@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/screens/chat/login_phone_screen.dart';
 import 'package:flutter_training/screens/chat/model/user_chat.dart';
 import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +40,7 @@ class _SettingChatScreenState extends State<SettingChatScreen> {
 
   Future<void> logout() async {
     AuthProvider().signOut();
-    Navigator.of(context).popUntil(ModalRoute.withName('/login_phone'));
+    Navigator.of(context).popUntil(ModalRoute.withName('/chat_welcome'));
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_training/models/contact.dart';
+import 'package:flutter_training/screens/chat/message_details.dart';
 import 'package:flutter_training/screens/chat/model/user_chat.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -54,11 +55,15 @@ class _ContactScreenState extends State<ContactScreen> {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
-                return const Text('Something went wrong');
+                return const Center(child: Text('Something went wrong'));
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Text("Loading");
+                return const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
+                );
               }
               return Column(
                 children: [
@@ -112,10 +117,14 @@ Widget renderListContact(
         )
       : InkWell(
           onTap: () {
-            // Navigator.pushNamed(
-            //   context,
-            //   '/message_detail',
-            // );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MessageDetailScreen(
+                          name:
+                              "${contacts['firstName']} ${contacts['lastName'] ?? ''}",
+                          roomID: user.uid + contacts['uid'],
+                        )));
           },
           child: Container(
             margin: const EdgeInsets.only(top: 16),

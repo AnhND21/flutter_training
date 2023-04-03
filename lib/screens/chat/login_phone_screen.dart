@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_training/screens/chat/chat_screen.dart';
 import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -20,13 +22,8 @@ class LoginPhoneScreen extends StatefulWidget {
 }
 
 class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
-  String phone = '';
-
-  void onPhoneNumerChange(String text) {
-    setState(() {
-      phone = text;
-    });
-  }
+  TextEditingController phoneController =
+      TextEditingController(text: '0326801100');
 
   void navigateSignUpEmail() {
     Navigator.pushNamed(context, '/signup_email');
@@ -48,8 +45,8 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: SizedBox(
-          // color: Colors.white,
+        child: Container(
+          color: Colors.white,
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -122,11 +119,14 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
                                       BorderRadius.all(Radius.circular(8))),
                               child: TextFormField(
                                 autocorrect: false,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(10),
+                                ],
+                                keyboardType: TextInputType.phone,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
-                                initialValue: phone,
-                                onChanged: (text) => onPhoneNumerChange(text),
+                                controller: phoneController,
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: const InputDecoration(
                                   hintStyle: TextStyle(
@@ -161,7 +161,9 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, '/confirm_otp',
-                      arguments: LoginOTPAgruments(phone: phone));
+                      arguments:
+                          LoginOTPAgruments(phone: phoneController.text));
+                  FocusScope.of(context).unfocus();
                   // phone.isNotEmpty
                   //     ? Navigator.pushNamed(context, '/confirm_otp',
                   //         arguments: phone.isNotEmpty

@@ -45,12 +45,18 @@ class _SignUpWithEmailScreenState extends State<SignUpWithEmailScreen> {
       });
       userCredential = credential;
     } on FirebaseAuthException catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
       if (e.code == 'weak-password') {
         log('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         log('The account already exists for that email.');
       }
     } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
       log(e.toString());
     }
     return userCredential;

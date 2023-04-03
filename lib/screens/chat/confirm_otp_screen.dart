@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/screens/chat/login_phone_screen.dart';
@@ -10,6 +13,9 @@ class ConfirmOTPScreen extends StatefulWidget {
 }
 
 class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
+  bool isLoading = false;
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   String otp1 = '';
 
   List<String> otpList = <String>['', '', '', ''];
@@ -20,6 +26,51 @@ class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
   }
 
   void onChangeOTP(String text, int index) {}
+
+  Future<void> onVerifyPhoneNumber(String phone) async {
+    log(phone);
+    setState(() {
+      isLoading = true;
+    });
+    // try {
+    //   await auth.verifyPhoneNumber(
+    //     phoneNumber: phone,
+    //     verificationCompleted: (PhoneAuthCredential credential) async {
+    //       await auth.signInWithCredential(credential);
+    //     },
+    //     verificationFailed: (FirebaseAuthException e) {
+    //       if (e.code == 'invalid-phone-number') {
+    //         // ignore: avoid_print
+    //         print('The provided phone number is not valid.');
+    //       }
+    //     },
+    //     codeSent: (String verificationId, int? resendToken) async {
+    //       String smsCode = 'xxxx';
+
+    //       PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    //           verificationId: verificationId, smsCode: smsCode);
+
+    //       await auth.signInWithCredential(credential);
+    //     },
+    //     codeAutoRetrievalTimeout: (String verificationId) {},
+    //   );
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // } on FirebaseAuthException catch (e) {
+    //   // ignore: avoid_print
+    //   print(e);
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // } catch (e) {
+    //   // ignore: avoid_print
+    //   print(e);
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +92,7 @@ class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          // color: Colors.white,
+          color: Colors.white,
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -108,7 +159,7 @@ class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
                   )),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/create_profile');
+                  onVerifyPhoneNumber(params.phone);
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),
@@ -118,13 +169,22 @@ class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
                   decoration: const BoxDecoration(
                       color: Color(0xFF002DE3),
                       borderRadius: BorderRadius.all(Radius.circular(32))),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15),
-                  ),
+                  child: isLoading
+                      ? const SizedBox(
+                          height: 19,
+                          width: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.5,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text(
+                          'Continue',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15),
+                        ),
                 ),
               )
             ],
