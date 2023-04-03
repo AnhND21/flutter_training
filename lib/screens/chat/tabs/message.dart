@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_training/components/listing_story.dart';
 import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/models/chat.dart';
 import 'package:flutter_training/models/story.dart';
+import 'package:flutter_training/screens/chat/tabs/contact.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -15,33 +18,18 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  List<Chat> lstChat = <Chat>[];
   List<Story> stories = <Story>[];
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
+
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('users')
+      .snapshots(includeMetadataChanges: true);
+
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     super.initState();
-    lstChat.addAll([
-      Chat(
-          id: '123123123',
-          name: 'Lisá',
-          createdAt: DateTime.now().toString(),
-          sentAt: DateTime.now().toString(),
-          status: 1,
-          messageUnread: 10,
-          lastMessage: 'I love u so muchhhhh :)))) ',
-          avatar:
-              "https://images2.thanhnien.vn/Uploaded/trucdl/2021_12_30/moneycualisalapkyluc3-8661.png"),
-      Chat(
-          id: '2212312',
-          name: 'Rosé',
-          createdAt: DateTime.now().toString(),
-          sentAt: DateTime.now().toString(),
-          status: 2,
-          lastMessage: "You're so cutewwwwww😻",
-          avatar:
-              "https://static2.yan.vn/YanNews/2167221/201911/xinh-qua-muc-cho-phep-trong-vay-trang-ai-co-the-lam-ngo-rose-77847861.jpg")
-    ]);
     stories.addAll([
       Story(
           name: 'Lisá',
@@ -59,68 +47,92 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text('Chats'),
-          titleSpacing: 24,
-          centerTitle: false,
-          leadingWidth: 0,
-          leading: Container(),
-          actions: <Widget>[
-            InkWell(
-              onTap: () {},
-              child: SvgPicture.asset(
-                "assets/svgs/chat_add.svg",
-                color:
-                    darkThemeProvider.darkTheme ? Colors.black : Colors.white,
-              ),
+      // backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text('Chats'),
+        titleSpacing: 24,
+        centerTitle: false,
+        leadingWidth: 0,
+        leading: Container(),
+        actions: <Widget>[
+          InkWell(
+            onTap: () {},
+            child: SvgPicture.asset(
+              "assets/svgs/chat_add.svg",
+              color: darkThemeProvider.darkTheme ? Colors.black : Colors.white,
             ),
-            const SizedBox(
-              width: 16,
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          InkWell(
+            onTap: () {},
+            child: SvgPicture.asset(
+              "assets/svgs/menu_checked.svg",
+              color: darkThemeProvider.darkTheme ? Colors.black : Colors.white,
             ),
-            InkWell(
-              onTap: () {},
-              child: SvgPicture.asset(
-                "assets/svgs/menu_checked.svg",
-                color:
-                    darkThemeProvider.darkTheme ? Colors.black : Colors.white,
-              ),
-            ),
-            const SizedBox(
-              width: 24,
-            ),
-          ],
-        ),
-        body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Column(
-              children: [
-                ListingStory(stories: stories),
-                Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(
-                        top: 24, left: 24, right: 24, bottom: 16),
-                    child: TextFormField(
-                      style: const TextStyle(fontWeight: FontWeight.w500),
-                      decoration: const InputDecoration(
-                        hintStyle: TextStyle(height: 1, color: Colors.black),
-                        filled: true,
-                        prefixIcon:
-                            Icon(CupertinoIcons.search, color: Colors.black),
-                        fillColor: Color(0xFFF7F7FC),
-                        hintText: 'Search...',
-                        isDense: true,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16))),
-                      ),
-                    )),
-                Flexible(child: ListingChat(data: lstChat))
-              ],
-            )));
+          ),
+          const SizedBox(
+            width: 24,
+          ),
+        ],
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: StreamBuilder<QuerySnapshot>(
+            stream: _usersStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text("Loading");
+              }
+              return Column(
+                children: [
+                  ListingStory(stories: stories),
+                  Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(
+                          top: 16, left: 24, right: 24, bottom: 16),
+                      child: TextFormField(
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        decoration: const InputDecoration(
+                          hintStyle: TextStyle(height: 1, color: Colors.black),
+                          filled: true,
+                          prefixIcon:
+                              Icon(CupertinoIcons.search, color: Colors.black),
+                          fillColor: Color(0xFFF7F7FC),
+                          hintText: 'Search...',
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16))),
+                        ),
+                      )),
+                  Flexible(
+                    child: ListView(
+                      key: UniqueKey(),
+                      padding: const EdgeInsets.only(
+                          top: 16, left: 16, right: 16, bottom: 32),
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return renderListContact(context, data, user);
+                      }).toList(),
+                    ),
+                  )
+                ],
+              );
+            }),
+      ),
+    );
   }
 }

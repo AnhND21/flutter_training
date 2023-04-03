@@ -1,9 +1,12 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
@@ -13,20 +16,14 @@ class CreateProfileScreen extends StatefulWidget {
 }
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
-  String firstName = '';
-  String lastName = '';
+  TextEditingController firstNameController = TextEditingController(text: '');
+  TextEditingController lastNameController = TextEditingController(text: '');
 
-  void setFirstName(String value) {
-    setState(() {
-      firstName = value;
-    });
-  }
+  File? _photo;
+  String? image;
 
-  void setLastName(String value) {
-    setState(() {
-      lastName = value;
-    });
-  }
+  final ImagePicker _picker = ImagePicker();
+  final user = FirebaseAuth.instance.currentUser;
 
   Future<void> onCreateUser() async {
     try {
@@ -37,15 +34,61 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
           .collection('users')
           .doc(params.user!.uid)
           .set({
-        'firstName': firstName,
-        'lastName': lastName,
+        'firstName': firstNameController.text,
+        'lastName': lastNameController.text,
         'email': params.user!.email,
         'uid': params.user!.uid,
         'phoneNumber': params.user!.phoneNumber,
-        'photoURL': params.user!.photoURL,
-      }).then((_) => {navigateToHomeChat()});
+        'photoURL': image,
+      }).then((_) {
+        user?.updateDisplayName(
+            "${firstNameController.text} ${lastNameController.text}");
+        if (image != null) user?.updatePhotoURL(image);
+        navigateToHomeChat();
+      });
     } on FirebaseException catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<void> onImagePicker() async {
+    try {
+      final result = await _picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        if (result != null) {
+          _photo = File(result.path);
+          uploadFile();
+        } else {
+          // ignore: avoid_print
+          print('No image selected.');
+        }
+      });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future uploadFile() async {
+    if (_photo == null) return;
+    final fileName = p.basename(_photo!.path);
+    final destination = 'files/$fileName';
+
+    try {
+      // setState(() {
+      //   isUploading = true;
+      // });
+      final ref = firebase_storage.FirebaseStorage.instance
+          .ref(destination)
+          .child('file/');
+      await ref.putFile(_photo!);
+      String url = (await ref.getDownloadURL()).toString();
+      setState(() {
+        image = url;
+        // isUploading = false;
+      });
+    } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
     }
   }
 
@@ -79,21 +122,34 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                   child: Column(
                     children: [
                       InkWell(
+                        onTap: () {
+                          onImagePicker();
+                        },
                         child: Stack(
                           children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: const BoxDecoration(
-                                  color: Color(0xFFF7F7FC),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50))),
-                              child: const Icon(
-                                Icons.person_outline,
-                                size: 50,
-                                color: Colors.black,
-                              ),
-                            ),
+                            image != null
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50)),
+                                    child: Image.network(
+                                      image!,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ))
+                                : Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: const BoxDecoration(
+                                        color: Color(0xFFF7F7FC),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: const Icon(
+                                      Icons.person_outline,
+                                      size: 50,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                             Positioned(
                               right: 3,
                               bottom: -2,
@@ -114,12 +170,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
+                          controller: firstNameController,
                           autocorrect: false,
                           style: const TextStyle(fontWeight: FontWeight.w500),
-                          initialValue: firstName,
-                          onChanged: (value) {
-                            setFirstName(value);
-                          },
                           decoration: const InputDecoration(
                             hintStyle:
                                 TextStyle(height: 2, color: Color(0xFFADB5BD)),
@@ -142,11 +195,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
+                          controller: lastNameController,
                           autocorrect: false,
-                          initialValue: lastName,
-                          onChanged: (value) {
-                            setLastName(value);
-                          },
                           style: const TextStyle(fontWeight: FontWeight.w500),
                           decoration: const InputDecoration(
                             hintStyle:

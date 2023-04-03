@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChatWelcomeScreen extends StatelessWidget {
   const ChatWelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -40,7 +44,11 @@ class ChatWelcomeScreen extends StatelessWidget {
                   )),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/login_phone');
+                  if (authProvider.isAuthenticated) {
+                    Navigator.pushNamed(context, '/chats');
+                  } else {
+                    Navigator.pushNamed(context, '/login_phone');
+                  }
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),

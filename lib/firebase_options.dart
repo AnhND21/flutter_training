@@ -34,7 +34,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '62052798470',
     projectId: 'flutterchatapp-2d0c6',
     // databaseURL: 'xxxxxxxxxxxxxxxxxxx',
-    // storageBucket: 'xxxxxxxxxxxxxxxxxxx',
+    storageBucket: 'gs://flutterchatapp-2d0c6.appspot.com',
     // androidClientId: 'xxxxxxxxxxxxxxxxxxx',
     // iosClientId: 'xxxxxxxxxxxxxxxxxxx',
     iosBundleId: 'com.example.flutterTraining',

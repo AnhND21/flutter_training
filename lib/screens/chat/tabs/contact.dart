@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_training/models/contact.dart';
+import 'package:flutter_training/screens/chat/model/user_chat.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({
@@ -16,44 +19,11 @@ class ContactScreen extends StatefulWidget {
 class _ContactScreenState extends State<ContactScreen> {
   List<Contact> contacts = <Contact>[];
 
-  @override
-  void initState() {
-    super.initState();
-    contacts.addAll([
-      Contact(
-          name: "DuyAnie",
-          id: '234e',
-          status: 1,
-          lastSeen: 'a month ago',
-          avatar:
-              'http://midias.correiobraziliense.com.br/_midias/png/2022/01/26/jisoo-7377278.png'),
-      Contact(
-          name: "Lisá",
-          id: '234e',
-          status: 1,
-          lastSeen: 'a month ago',
-          avatar:
-              'https://vtv1.mediacdn.vn/thumb_w/650/2020/6/2/1591067420-20200601-lisa-15910726681152074573621.jpg'),
-      Contact(
-          name: "Rosé",
-          id: '234e',
-          status: 1,
-          lastSeen: 'a minute',
-          avatar:
-              'https://ss-ava.saostar.vn/w800/pc/1679385212182/saostar-p8xo8nmmug38yecr.png'),
-      Contact(
-          name: "Jennie",
-          id: '234e',
-          status: 1,
-          avatar:
-              'https://img.inews.co.id/media/600/files/inews_new/2021/12/03/lisa_blackpink.jpg'),
-      Contact(
-        name: "Jisoo",
-        id: '234e',
-        status: 1,
-      ),
-    ]);
-  }
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('users')
+      .snapshots(includeMetadataChanges: true);
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -79,53 +49,80 @@ class _ContactScreenState extends State<ContactScreen> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Column(
-          children: [
-            Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(
-                    top: 24, left: 24, right: 24, bottom: 16),
-                child: TextFormField(
-                  style: const TextStyle(fontWeight: FontWeight.w500),
-                  decoration: const InputDecoration(
-                    hintStyle: TextStyle(height: 1, color: Colors.black),
-                    filled: true,
-                    prefixIcon:
-                        Icon(CupertinoIcons.search, color: Colors.black),
-                    fillColor: Color(0xFFF7F7FC),
-                    hintText: 'Search...',
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(16))),
-                  ),
-                )),
-            Flexible(
-              child: renderListContact(context, contacts),
-            )
-          ],
-        ),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: _usersStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text("Loading");
+              }
+              return Column(
+                children: [
+                  Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(
+                          top: 24, left: 24, right: 24, bottom: 16),
+                      child: TextFormField(
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                        decoration: const InputDecoration(
+                          hintStyle: TextStyle(height: 1, color: Colors.black),
+                          filled: true,
+                          prefixIcon:
+                              Icon(CupertinoIcons.search, color: Colors.black),
+                          fillColor: Color(0xFFF7F7FC),
+                          hintText: 'Search...',
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16))),
+                        ),
+                      )),
+                  Flexible(
+                    child: ListView(
+                      key: UniqueKey(),
+                      padding: const EdgeInsets.only(
+                          top: 16, left: 16, right: 16, bottom: 32),
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return renderListContact(context, data, user);
+                      }).toList(),
+                    ),
+                  )
+                ],
+              );
+            }),
       ),
     );
   }
 }
 
-Widget renderListContact(BuildContext context, List<Contact> contacts) {
-  return SizedBox(
-    height: MediaQuery.of(context).size.height,
-    child: ListView.separated(
-        padding: const EdgeInsets.all(24),
-        shrinkWrap: true,
-        physics: const AlwaysScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              // Navigator.pushNamed(
-              //   context,
-              //   '/message_detail',
-              // );
-            },
+Widget renderListContact(
+    BuildContext context, Map<String, dynamic> contacts, User? user) {
+  return contacts['uid'] == user!.uid
+      ? Container(
+          height: 0,
+        )
+      : InkWell(
+          onTap: () {
+            // Navigator.pushNamed(
+            //   context,
+            //   '/message_detail',
+            // );
+          },
+          child: Container(
+            margin: const EdgeInsets.only(top: 16),
+            padding: const EdgeInsets.only(bottom: 16),
+            decoration: const BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(width: 0.5, color: Colors.black12))),
             child: Row(
               children: <Widget>[
                 Stack(children: [
@@ -135,9 +132,9 @@ Widget renderListContact(BuildContext context, List<Contact> contacts) {
                     alignment: Alignment.center,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      child: contacts[index].avatar != null
+                      child: contacts['photoURL'] != null
                           ? Image.network(
-                              contacts[index].avatar.toString(),
+                              contacts['photoURL'].toString(),
                               fit: BoxFit.cover,
                               width: 48,
                               height: 48,
@@ -154,7 +151,7 @@ Widget renderListContact(BuildContext context, List<Contact> contacts) {
                             ),
                     ),
                   ),
-                  contacts[index].lastSeen == null
+                  contacts['phoneNumber'] != null
                       ? Positioned(
                           right: 0,
                           top: 2,
@@ -180,15 +177,16 @@ Widget renderListContact(BuildContext context, List<Contact> contacts) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      contacts[index].name,
-                      style: const TextStyle(fontSize: 18, height: 1),
+                      "${contacts['firstName']} ${contacts['lastName'] ?? ''}",
+                      style: const TextStyle(
+                          fontSize: 18, height: 1, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       height: 4,
                     ),
                     Text(
-                      contacts[index].lastSeen != null
-                          ? 'Last seen ${contacts[index].lastSeen}'
+                      contacts['phoneNumber'] != null
+                          ? 'Last seen a minute'
                           : 'Active',
                       style: const TextStyle(
                         color: Colors.grey,
@@ -198,16 +196,6 @@ Widget renderListContact(BuildContext context, List<Contact> contacts) {
                 )
               ],
             ),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Container(
-            height: 1,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.grey.shade100,
-            margin: const EdgeInsets.symmetric(vertical: 16),
-          );
-        },
-        itemCount: contacts.length),
-  );
+          ),
+        );
 }

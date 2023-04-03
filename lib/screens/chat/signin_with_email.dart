@@ -1,5 +1,10 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/screens/chat/model/user_chat.dart';
 
 class SignInWithEmailScreen extends StatefulWidget {
   const SignInWithEmailScreen({super.key});
@@ -10,8 +15,70 @@ class SignInWithEmailScreen extends StatefulWidget {
 
 class _SignInWithEmailScreen extends State<SignInWithEmailScreen> {
   bool _isLoading = false;
-  String email = '';
-  String password = '';
+  String email = 'da@g.com';
+  String password = '111111';
+  final CollectionReference _userCollection =
+      FirebaseFirestore.instance.collection('users');
+  final currentUser = FirebaseAuth.instance.currentUser;
+
+  Future<void> onSignIn() async {
+    FocusScope.of(context).unfocus();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (userCredential.user != null) {
+        setState(() {
+          _isLoading = false;
+        });
+        getUserInfo(userCredential);
+        onNavigateToHome();
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      if (e.code == 'user-not-found') {
+        log('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        log('Wrong password provided for that user.');
+      }
+    }
+  }
+
+  Future<void> getUserInfo(UserCredential userInfo) async {
+    _userCollection
+        .doc((userInfo.user!.uid))
+        .get()
+        .then((DocumentSnapshot value) {
+      if (value.exists) {
+        final credentials =
+            UserChat.fromJson(value.data() as Map<String, dynamic>);
+        currentUser!.updateDisplayName(
+            "${credentials.firstName} ${credentials.lastName}");
+        currentUser!.updatePhotoURL(credentials.photoURL);
+      }
+    });
+  }
+
+  void onNavigateToHome() {
+    Navigator.pushNamed(context, "/chats");
+  }
+
+  void onChangeEmail(String text) {
+    setState(() {
+      email = text;
+    });
+  }
+
+  void onChangePassword(String text) {
+    setState(() {
+      password = text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,9 +121,7 @@ class _SignInWithEmailScreen extends State<SignInWithEmailScreen> {
                           textAlignVertical: TextAlignVertical.center,
                           initialValue: email,
                           onChanged: (value) {
-                            setState(() {
-                              email = value;
-                            });
+                            onChangeEmail(value);
                           },
                           decoration: const InputDecoration(
                             isDense: true,
@@ -86,9 +151,7 @@ class _SignInWithEmailScreen extends State<SignInWithEmailScreen> {
                           textAlignVertical: TextAlignVertical.center,
                           initialValue: password,
                           onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
+                            onChangePassword(value);
                           },
                           decoration: const InputDecoration(
                             isDense: true,
@@ -146,7 +209,13 @@ class _SignInWithEmailScreen extends State<SignInWithEmailScreen> {
                     ),
                   )),
               InkWell(
-                onTap: () async {},
+                onTap: () async {
+                  if (email.isNotEmpty &&
+                      password.isNotEmpty &&
+                      password.length >= 6) {
+                    await onSignIn();
+                  }
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),
                   padding: const EdgeInsets.all(16),

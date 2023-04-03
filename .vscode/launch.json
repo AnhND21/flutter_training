@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Flutter-All",
+      "preLaunchTask": "Flutter-Launch-All",
+      "type": "dart",
+      "request": "launch"
+    },
+    {
       "name": "Flutter",
       "type": "dart",
       "request": "launch",

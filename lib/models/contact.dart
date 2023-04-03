@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Contact {
-  final String name;
-  final String id;
-  final String? avatar;
-  final String? lastSeen;
-  final int status;
+  final String firstName;
+  final String email;
+  final String? lastName;
+  final String? photoURL;
+  final String? phoneNumber;
+  final String uid;
 
   Contact({
-    required this.name,
-    required this.id,
-    this.avatar,
-    this.lastSeen,
-    required this.status,
+    required this.firstName,
+    required this.email,
+    this.lastName,
+    this.photoURL,
+    this.phoneNumber,
+    required this.uid,
   });
 }

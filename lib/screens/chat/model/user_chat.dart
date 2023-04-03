@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserChat {
   final String? displayName;
   final String email;
-  final String? phoneNumer;
+  final String? phoneNumber;
   final String uid;
   final String firstName;
   final String? lastName;
@@ -15,7 +15,7 @@ class UserChat {
   UserChat({
     this.displayName,
     required this.email,
-    this.phoneNumer,
+    this.phoneNumber,
     required this.uid,
     required this.firstName,
     this.lastName,
@@ -26,7 +26,7 @@ class UserChat {
     return <String, dynamic>{
       'displayName': displayName,
       'email': email,
-      'phoneNumer': phoneNumer,
+      'phoneNumber': phoneNumber,
       'uid': uid,
       'firstName': firstName,
       'lastName': lastName,
@@ -44,8 +44,8 @@ class UserChat {
       displayName:
           map['displayName'] != null ? map['displayName'] as String : null,
       email: map['email'] as String,
-      phoneNumer:
-          map['phoneNumer'] != null ? map['phoneNumer'] as String : null,
+      phoneNumber:
+          map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       uid: map['uid'] as String,
       firstName: map['firstName'] as String,
       lastName: map['lastName'] != null ? map['lastName'] as String : null,
@@ -55,13 +55,13 @@ class UserChat {
 
   String toJson() => json.encode(toMap());
 
-  factory UserChat.fromJson(String source) =>
-      UserChat.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserChat.fromJson(Map<String, dynamic>? source) =>
+      UserChat.fromMap(source as Map<String, dynamic>);
 
   UserChat copyWith({
     String? displayName,
     String? email,
-    String? phoneNumer,
+    String? phoneNumber,
     String? uid,
     String? firstName,
     String? lastName,
@@ -70,7 +70,7 @@ class UserChat {
     return UserChat(
       displayName: displayName ?? this.displayName,
       email: email ?? this.email,
-      phoneNumer: phoneNumer ?? this.phoneNumer,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
       uid: uid ?? this.uid,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -80,7 +80,7 @@ class UserChat {
 
   @override
   String toString() {
-    return 'UserChat(displayName: $displayName, email: $email, phoneNumer: $phoneNumer, uid: $uid, firstName: $firstName, lastName: $lastName, photoURL: $photoURL)';
+    return 'UserChat(displayName: $displayName, email: $email, phoneNumber: $phoneNumber, uid: $uid, firstName: $firstName, lastName: $lastName, photoURL: $photoURL)';
   }
 
   @override
@@ -89,7 +89,7 @@ class UserChat {
 
     return other.displayName == displayName &&
         other.email == email &&
-        other.phoneNumer == phoneNumer &&
+        other.phoneNumber == phoneNumber &&
         other.uid == uid &&
         other.firstName == firstName &&
         other.lastName == lastName &&
@@ -100,7 +100,7 @@ class UserChat {
   int get hashCode {
     return displayName.hashCode ^
         email.hashCode ^
-        phoneNumer.hashCode ^
+        phoneNumber.hashCode ^
         uid.hashCode ^
         firstName.hashCode ^
         lastName.hashCode ^

@@ -12,6 +12,7 @@ import 'package:flutter_training/screens/chat/message_details.dart';
 import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
 import 'package:flutter_training/screens/chat/signin_with_email.dart';
 import 'package:flutter_training/screens/chat/signup_with_email.dart';
+import 'package:flutter_training/screens/chat/update_profile_screen.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
@@ -92,6 +93,7 @@ class _MyAppState extends State<MyApp> {
               '/message_detail': (context) => const MessageDetailScreen(),
               '/signup_email': (context) => const SignUpWithEmailScreen(),
               '/sigin_email': (context) => const SignInWithEmailScreen(),
+              '/update_profile': (context) => const UpdateProfileScreen(),
             },
           );
         },
