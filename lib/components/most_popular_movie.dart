@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/models/movies.dart';
+import 'package:flutter_training/screens/movies/model/movie_model.dart';
 
 class MostPopularMovies extends StatefulWidget {
-  final List<Movies> movieList;
+  final List<Movie> movieList;
   const MostPopularMovies({super.key, required this.movieList});
 
   @override
@@ -80,8 +80,8 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                 children: [
                                   Opacity(
                                     opacity: widget.movieList[_sliderIndex]
-                                                .movieName ==
-                                            i.movieName
+                                                .originalTitle ==
+                                            i.originalTitle
                                         ? 1.0
                                         : 0.5,
                                     child: ClipRRect(
@@ -100,12 +100,13 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                         ),
                                         child: CachedNetworkImage(
                                             fit: BoxFit.cover,
-                                            imageUrl: i.thumbnail),
+                                            imageUrl:
+                                                "https://image.tmdb.org/t/p/w500${i.backdropPath}"),
                                       ),
                                     ),
                                   ),
-                                  widget.movieList[_sliderIndex].movieName ==
-                                          i.movieName
+                                  widget.movieList[_sliderIndex].title ==
+                                          i.title
                                       ? Positioned(
                                           child: Container(
                                           alignment: Alignment.bottomCenter,
@@ -130,7 +131,7 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  '${i.movieName.substring(0, 18)}...',
+                                                  '${i.title!.substring(0, 18)}...',
                                                   style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
@@ -153,7 +154,7 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                                                       .circular(
                                                                           16))),
                                                   child: Text(
-                                                    "IMDb ${i.imdb}",
+                                                    "IMDb ${i.voteAverage}",
                                                     style: const TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
@@ -176,7 +177,7 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                 height: 16,
               ),
               DotsIndicator(
-                dotsCount: widget.movieList.length,
+                dotsCount: 3,
                 position: _sliderIndex.toDouble(),
                 decorator: const DotsDecorator(
                     activeColor: Color.fromARGB(255, 102, 68, 250)),

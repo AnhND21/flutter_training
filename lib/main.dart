@@ -14,6 +14,7 @@ import 'package:flutter_training/screens/chat/signin_with_email.dart';
 import 'package:flutter_training/screens/chat/signup_with_email.dart';
 import 'package:flutter_training/screens/chat/update_profile_screen.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
+import 'package:flutter_training/screens/movies/provider/movie_provider.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
@@ -27,7 +28,8 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform, name: 'Flutter');
   runApp(const MyApp());
 }
 
@@ -65,6 +67,11 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<AuthProvider>(
           create: (_) {
             return AuthProvider();
+          },
+        ),
+        ChangeNotifierProvider<MovieProvider>(
+          create: (_) {
+            return MovieProvider();
           },
         )
       ],

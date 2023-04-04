@@ -1,11 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_training/screens/chat/chat_screen.dart';
-import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
-import 'package:provider/provider.dart';
 
 class LoginOTPAgruments {
   final String phone;
