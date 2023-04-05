@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies/model/movie_model.dart';
 
 class MostPopularMovies extends StatefulWidget {
@@ -14,6 +15,7 @@ class MostPopularMovies extends StatefulWidget {
 
 class _MostPopularMoviesState extends State<MostPopularMovies> {
   int _sliderIndex = 0;
+  final CarouselController _controller = CarouselController();
 
   void onSliderIndexChange(int index) {
     setState(() {
@@ -44,22 +46,24 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
           Column(
             children: [
               CarouselSlider(
+                carouselController: _controller,
                 options: CarouselOptions(
-                    pageSnapping: true,
-                    height: 141.0,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    // autoPlay: true,
-                    enlargeFactor: 0.2,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index, reason) =>
-                        {onSliderIndexChange(index)},
-                    initialPage: _sliderIndex),
-                items: widget.movieList.map((i) {
+                  height: 141.0,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.2,
+                  scrollDirection: Axis.horizontal,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _sliderIndex = index;
+                    });
+                    _controller.animateToPage(index,
+                        duration: const Duration(microseconds: 300),
+                        curve: Curves.slowMiddle);
+                  },
+                ),
+                items: widget.movieList.skip(0).take(5).map((i) {
                   return Builder(
+                    key: UniqueKey(),
                     builder: (BuildContext context) {
                       return Container(
                           width: MediaQuery.of(context).size.width,
@@ -69,9 +73,13 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                           child: InkWell(
                             onTap: () {
                               _sliderIndex == widget.movieList.indexOf(i)
-                                  ? Navigator.pushNamed(
-                                      context, '/movie_detals',
-                                      arguments: i)
+                                  ? Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                      builder: (context) {
+                                        return MovieDetails(
+                                            movieId: i.id!.toInt());
+                                      },
+                                    ))
                                   : {};
                             },
                             child: Stack(
@@ -79,11 +87,11 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                 fit: StackFit.expand,
                                 children: [
                                   Opacity(
-                                    opacity: widget.movieList[_sliderIndex]
-                                                .originalTitle ==
-                                            i.originalTitle
-                                        ? 1.0
-                                        : 0.5,
+                                    opacity:
+                                        widget.movieList[_sliderIndex].title ==
+                                                i.title
+                                            ? 1.0
+                                            : 0.5,
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(32)),
@@ -101,12 +109,11 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                         child: CachedNetworkImage(
                                             fit: BoxFit.cover,
                                             imageUrl:
-                                                "https://image.tmdb.org/t/p/w500${i.backdropPath}"),
+                                                "https://image.tmdb.org/t/p/w500/${i.backdropPath}"),
                                       ),
                                     ),
                                   ),
-                                  widget.movieList[_sliderIndex].title ==
-                                          i.title
+                                  widget.movieList[_sliderIndex].id == i.id
                                       ? Positioned(
                                           child: Container(
                                           alignment: Alignment.bottomCenter,
@@ -131,7 +138,7 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  '${i.title!.substring(0, 18)}...',
+                                                  '${i.title!.length <= 16 ? i.title : i.title!.substring(0, i.title!.length - 10)}...',
                                                   style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
@@ -171,13 +178,13 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                           ));
                     },
                   );
-                }).toList(),
+                }).toList(growable: false),
               ),
               const SizedBox(
                 height: 16,
               ),
               DotsIndicator(
-                dotsCount: 3,
+                dotsCount: widget.movieList.take(5).length,
                 position: _sliderIndex.toDouble(),
                 decorator: const DotsDecorator(
                     activeColor: Color.fromARGB(255, 102, 68, 250)),

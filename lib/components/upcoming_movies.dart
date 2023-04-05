@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/models/upcoming_movie.dart';
+import 'package:flutter_training/screens/movies/model/movie_model.dart';
 
 class UpcomingMovies extends StatefulWidget {
-  final List<UpcomingMovie> comingUpMovieList;
+  final List<Movie> comingUpMovieList;
   const UpcomingMovies({super.key, required this.comingUpMovieList});
 
   @override
@@ -23,6 +23,7 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
 
   @override
   Widget build(BuildContext context) {
+    final movies = widget.comingUpMovieList.skip(6).take(5).toList();
     return Container(
       alignment: Alignment.topLeft,
       margin: const EdgeInsets.only(top: 32),
@@ -51,7 +52,7 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
                 autoPlayAnimationDuration: const Duration(milliseconds: 800),
                 autoPlayCurve: Curves.fastOutSlowIn,
                 // enlargeCenterPage: true,
-                autoPlay: true,
+                // autoPlay: true,
                 // enlargeFactor: 10,
                 viewportFraction: 0.5,
                 aspectRatio: 1.5,
@@ -62,17 +63,14 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
                   onSliderComingUpIndexChange(index);
                 },
                 initialPage: _sliderComingUpIndex),
-            items: widget.comingUpMovieList.map((e) {
+            items: movies.map((e) {
               return Builder(
                 builder: (context) {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                     child: Opacity(
-                      opacity: widget.comingUpMovieList[_sliderComingUpIndex]
-                                  .movieName ==
-                              e.movieName
-                          ? 1.0
-                          : 0.5,
+                      opacity:
+                          movies[_sliderComingUpIndex].id == e.id ? 1.0 : 0.5,
                       child: InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, '/movie_detals',
@@ -84,7 +82,8 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
                           child: CachedNetworkImage(
                               height: 214.0,
                               fit: BoxFit.cover,
-                              imageUrl: e.thumbnail),
+                              imageUrl:
+                                  "https://image.tmdb.org/t/p/w500/${e.posterPath}"),
                         ),
                       ),
                     ),
@@ -99,7 +98,7 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
           DotsIndicator(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
-            dotsCount: widget.comingUpMovieList.length,
+            dotsCount: 5,
             position: _sliderComingUpIndex.toDouble(),
             decorator: const DotsDecorator(
                 activeColor: Color.fromARGB(255, 102, 68, 250)),

@@ -14,7 +14,9 @@ import 'package:flutter_training/screens/chat/signin_with_email.dart';
 import 'package:flutter_training/screens/chat/signup_with_email.dart';
 import 'package:flutter_training/screens/chat/update_profile_screen.dart';
 import 'package:flutter_training/screens/listing_screen.dart';
+import 'package:flutter_training/screens/movies/provider/genres_provider.dart';
 import 'package:flutter_training/screens/movies/provider/movie_provider.dart';
+import 'package:flutter_training/screens/movies/screens/movie_search.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
@@ -73,6 +75,11 @@ class _MyAppState extends State<MyApp> {
           create: (_) {
             return MovieProvider();
           },
+        ),
+        ChangeNotifierProvider<GenredProvider>(
+          create: (_) {
+            return GenredProvider();
+          },
         )
       ],
       child: Consumer<DarkThemeProvider>(
@@ -88,7 +95,7 @@ class _MyAppState extends State<MyApp> {
               '/listing': (context) => const ListingScreen(),
               '/profile': (context) => const ProfileScreen(),
               '/movies': (context) => const MoviesScreen(),
-              '/movie_detals': (context) => const MovieDetails(),
+              '/movie_search': (context) => const MovieSearchScreen(),
               '/weather': (context) => const WeatherScreen(),
               '/weather_setting': (context) => const WeatherSettingScreen(),
               '/weather_location': (context) => const WeatherLocationScreen(),

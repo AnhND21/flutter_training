@@ -54,6 +54,7 @@ dependencies:
   readmore: ^2.2.0
   retrofit: ^4.0.1
   shared_preferences: ^2.0.20
+  sliding_up_panel: ^2.0.0+1
   video_player: ^2.6.0
   youtube_player_flutter: ^8.1.2
 

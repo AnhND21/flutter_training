@@ -9,7 +9,9 @@ import 'package:flutter_training/models/actor.dart';
 import 'package:flutter_training/models/movies.dart';
 import 'package:flutter_training/models/upcoming_movie.dart';
 import 'package:flutter_training/screens/movies/model/movie_model.dart';
+import 'package:flutter_training/screens/movies/provider/genres_provider.dart';
 import 'package:flutter_training/screens/movies/provider/movie_provider.dart';
+import 'package:flutter_training/screens/movies/screens/movie_search.dart';
 import 'package:provider/provider.dart';
 
 class MoviesScreen extends StatefulWidget {
@@ -41,6 +43,10 @@ class _MoviesScreenState extends State<MoviesScreen> {
     Provider.of<MovieProvider>(context, listen: false)
         .fetchAndSetMovies()
         .then((_) {
+      Provider.of<GenredProvider>(context, listen: false)
+          .fetchAndSetGenres()
+          .then((_) {});
+
       setState(() {
         _isLoading = false;
       });
@@ -49,8 +55,10 @@ class _MoviesScreenState extends State<MoviesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final recipeData = Provider.of<MovieProvider>(context);
-    final fetchedMovie = recipeData.movies;
+    final movieData = Provider.of<MovieProvider>(context);
+    final genresData = Provider.of<GenredProvider>(context);
+    final fetchedMovie = movieData.movies;
+    final fetchedGenres = genresData.genres;
     return Scaffold(
       body: DefaultTabController(
         length: 5,
@@ -78,6 +86,9 @@ class _MoviesScreenState extends State<MoviesScreen> {
                       padding: const EdgeInsets.only(bottom: 64),
                       physics: const AlwaysScrollableScrollPhysics(),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.symmetric(
@@ -109,13 +120,15 @@ class _MoviesScreenState extends State<MoviesScreen> {
                               ],
                             ),
                           ),
-                          _isLoading
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 1,
-                                  ),
-                                )
-                              : Container(
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/movie_search');
+                            },
+                            child: Hero(
+                              tag: 'searchHero',
+                              child: Material(
+                                type: MaterialType.transparency,
+                                child: Container(
                                   height: 50,
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 32),
@@ -130,6 +143,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
                                           width: 0.5, color: Colors.white)),
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
+                                    enabled: false,
                                     decoration: InputDecoration(
                                       suffixIcon: Container(
                                         decoration: const BoxDecoration(
@@ -162,9 +176,25 @@ class _MoviesScreenState extends State<MoviesScreen> {
                                     ),
                                   ),
                                 ),
-                          MostPopularMovies(movieList: fetchedMovie),
-                          const MenuActions(),
-                          // UpcomingMovies(comingUpMovieList: comingUpMovieList),
+                              ),
+                            ),
+                          ),
+                          if (_isLoading)
+                            const Padding(
+                              padding: EdgeInsets.only(top: 32.0),
+                              child: Center(
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 1),
+                              ),
+                            )
+                          else
+                            Column(
+                              children: [
+                                MostPopularMovies(movieList: fetchedMovie),
+                                MenuActions(actions: fetchedGenres),
+                                UpcomingMovies(comingUpMovieList: fetchedMovie),
+                              ],
+                            )
                         ],
                       ),
                     ),
