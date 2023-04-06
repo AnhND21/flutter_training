@@ -41,7 +41,7 @@ class _RootScreenState extends State<RootScreen> {
         route = '/chat_welcome';
         break;
       case 5:
-        route = '/notes';
+        route = '/note';
         break;
       default:
     }

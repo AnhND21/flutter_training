@@ -17,6 +17,7 @@ import 'package:flutter_training/screens/listing_screen.dart';
 import 'package:flutter_training/screens/movies/provider/genres_provider.dart';
 import 'package:flutter_training/screens/movies/provider/movie_provider.dart';
 import 'package:flutter_training/screens/movies/screens/movie_search.dart';
+import 'package:flutter_training/screens/notes/note_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
@@ -107,6 +108,7 @@ class _MyAppState extends State<MyApp> {
               '/signup_email': (context) => const SignUpWithEmailScreen(),
               '/sigin_email': (context) => const SignInWithEmailScreen(),
               '/update_profile': (context) => const UpdateProfileScreen(),
+              '/note': (context) => const NoteScreen(),
             },
           );
         },
