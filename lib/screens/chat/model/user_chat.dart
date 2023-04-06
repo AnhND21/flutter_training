@@ -43,7 +43,7 @@ class UserChat {
     return UserChat(
       displayName:
           map['displayName'] != null ? map['displayName'] as String : null,
-      email: map['email'] as String,
+      email: map['email'] != null ? map['email'] as String : '',
       phoneNumber:
           map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       uid: map['uid'] as String,

@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/screens/movie_details.dart';
+import 'package:flutter_training/screens/movies/model/movie_detail.dart';
 import 'package:flutter_training/screens/movies/model/movie_model.dart';
 
 class UpcomingMovies extends StatefulWidget {
@@ -73,8 +75,11 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
                           movies[_sliderComingUpIndex].id == e.id ? 1.0 : 0.5,
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/movie_detals',
-                              arguments: e);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return MovieDetails(movieId: e.id!.toInt());
+                            },
+                          ));
                         },
                         child: ClipRRect(
                           borderRadius:

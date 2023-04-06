@@ -102,7 +102,6 @@ class _MyAppState extends State<MyApp> {
               '/chats': (context) => const ChatScreen(),
               '/chat_welcome': (context) => const ChatWelcomeScreen(),
               '/login_phone': (context) => const LoginPhoneScreen(),
-              '/confirm_otp': (context) => const ConfirmOTPScreen(),
               '/create_profile': (context) => const CreateProfileScreen(),
               // '/message_detail': (context) => const MessageDetailScreen(),
               '/signup_email': (context) => const SignUpWithEmailScreen(),

@@ -26,6 +26,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   TextEditingController firstNameController = TextEditingController(text: '');
   TextEditingController lastNameController = TextEditingController(text: '');
   TextEditingController phoneController = TextEditingController(text: '');
+  TextEditingController emailController = TextEditingController(text: '');
 
   String? image;
   File? file;
@@ -48,6 +49,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             UserChat.fromJson(value.data() as Map<String, dynamic>);
         setState(() {
           firstNameController.text = credentials.firstName;
+          emailController.text = credentials.email;
           lastNameController.text = credentials.lastName ?? '';
           phoneController.text = credentials.phoneNumber ?? '';
           image = credentials.photoURL;
@@ -66,11 +68,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       'firstName': firstNameController.text,
       'lastName': lastNameController.text,
       'phoneNumber': phoneController.text,
+      'email': emailController.text,
       'photoURL': image
     }).then((value) {
       setState(() {
         isLoading = false;
       });
+      user?.updateEmail(emailController.text);
       user?.updateDisplayName(
           "${firstNameController.text} ${lastNameController.text}");
       if (image != null) user?.updatePhotoURL(image);
@@ -122,6 +126,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<AuthProvider>(context);
+    image = userProvider.user!.photoURL;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Update Profile'),
@@ -224,12 +229,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8))),
                                 child: TextFormField(
-                                  enabled: false,
+                                  enabled: emailController.text == '',
                                   autocorrect: false,
+                                  controller: emailController,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.black54),
-                                  initialValue: userProvider.user!.email ?? '',
+                                      color: Colors.black),
                                   decoration: const InputDecoration(
                                     hintStyle: TextStyle(
                                         height: 1, color: Color(0xFFADB5BD)),
@@ -320,6 +325,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                         BorderRadius.all(Radius.circular(8))),
                                 child: TextFormField(
                                   controller: phoneController,
+                                  enabled: phoneController.text.isEmpty,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500),
                                   decoration: const InputDecoration(

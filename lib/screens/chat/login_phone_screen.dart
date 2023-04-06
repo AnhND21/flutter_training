@@ -1,14 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-class LoginOTPAgruments {
-  final String phone;
-  LoginOTPAgruments({
-    required this.phone,
-  });
-}
+import 'package:flutter_training/screens/chat/confirm_otp_screen.dart';
 
 class LoginPhoneScreen extends StatefulWidget {
   const LoginPhoneScreen({super.key});
@@ -21,8 +19,45 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
   TextEditingController phoneController =
       TextEditingController(text: '0326801100');
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final db = FirebaseFirestore.instance;
+
   void navigateSignUpEmail() {
     Navigator.pushNamed(context, '/signup_email');
+  }
+
+  Future<void> verifyPhone() async {
+    try {
+      await _auth.verifyPhoneNumber(
+        verificationCompleted: (phoneAuthCredential) {},
+        phoneNumber:
+            "+84${phoneController.text.substring(1, 10)}", // PHONE NUMBER TO SEND OTP
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationId = verificationId;
+          log(verificationId);
+          log("Timout");
+        },
+        codeSent: (String verificationId, int? resendToken) async {
+          showGeneralDialog(
+            context: context,
+            barrierDismissible: false,
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return ConfirmOTPScreen(
+                  phone: phoneController.text,
+                  verificationId: verificationId,
+                  resendCode: () => verifyPhone());
+            },
+          );
+        }, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+        timeout: const Duration(seconds: 20),
+        verificationFailed: (FirebaseAuthException authException) {
+          log(authException.message.toString());
+        },
+      );
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
   }
 
   @override
@@ -156,16 +191,9 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
                   )),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/confirm_otp',
-                      arguments:
-                          LoginOTPAgruments(phone: phoneController.text));
-                  FocusScope.of(context).unfocus();
-                  // phone.isNotEmpty
-                  //     ? Navigator.pushNamed(context, '/confirm_otp',
-                  //         arguments: phone.isNotEmpty
-                  //             ? LoginOTPAgruments(phone: phone)
-                  //             : {})
-                  //     : {};
+                  phoneController.text.isNotEmpty
+                      ? {FocusScope.of(context).unfocus(), verifyPhone()}
+                      : {};
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),

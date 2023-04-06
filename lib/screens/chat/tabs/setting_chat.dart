@@ -103,7 +103,9 @@ class _SettingChatScreenState extends State<SettingChatScreen> {
                                     fontWeight: FontWeight.w600, fontSize: 15),
                               ),
                               Text(
-                                authProvider.user?.email ?? '',
+                                authProvider.user?.email ??
+                                    authProvider.user?.phoneNumber ??
+                                    '',
                                 style: const TextStyle(
                                     height: 1.5, color: Colors.grey),
                               )
