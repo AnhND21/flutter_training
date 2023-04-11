@@ -20,6 +20,7 @@ class _RootScreenState extends State<RootScreen> {
     'Weather',
     'Firebase Chat',
     'Notes',
+    'Routes',
   ];
 
   void onNavigateToScreen(int index) {
@@ -42,6 +43,9 @@ class _RootScreenState extends State<RootScreen> {
         break;
       case 5:
         route = '/note';
+        break;
+      case 6:
+        route = '/search';
         break;
       default:
     }

@@ -19,6 +19,7 @@ import 'package:flutter_training/screens/notes/provider/note_provider.dart';
 import 'package:flutter_training/screens/notes/screens/add_note_screen.dart';
 import 'package:flutter_training/screens/notes/screens/note_screen.dart';
 import 'package:flutter_training/screens/notes/screens/search_note_screen.dart';
+import 'package:flutter_training/screens/search/search_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
 import 'package:flutter_training/screens/profile_screen.dart';
@@ -116,6 +117,7 @@ class _MyAppState extends State<MyApp> {
               '/note': (context) => const NoteScreen(),
               '/add_note': (context) => const AddNoteScreen(),
               '/search_note': (context) => const SearchNoteScreen(),
+              '/search': (context) => const SearchScreen(),
             },
           );
         },
