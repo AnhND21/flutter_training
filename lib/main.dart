@@ -5,10 +5,8 @@ import 'package:flutter_training/core/theme_data.dart';
 import 'package:flutter_training/core/theme_provider.dart';
 import 'package:flutter_training/screens/chat/chat_screen.dart';
 import 'package:flutter_training/screens/chat/chat_welcome_screen.dart';
-import 'package:flutter_training/screens/chat/confirm_otp_screen.dart';
 import 'package:flutter_training/screens/chat/create_profile_screen.dart';
 import 'package:flutter_training/screens/chat/login_phone_screen.dart';
-import 'package:flutter_training/screens/chat/message_details.dart';
 import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
 import 'package:flutter_training/screens/chat/signin_with_email.dart';
 import 'package:flutter_training/screens/chat/signup_with_email.dart';
@@ -17,9 +15,11 @@ import 'package:flutter_training/screens/listing_screen.dart';
 import 'package:flutter_training/screens/movies/provider/genres_provider.dart';
 import 'package:flutter_training/screens/movies/provider/movie_provider.dart';
 import 'package:flutter_training/screens/movies/screens/movie_search.dart';
-import 'package:flutter_training/screens/notes/note_screen.dart';
+import 'package:flutter_training/screens/notes/provider/note_provider.dart';
+import 'package:flutter_training/screens/notes/screens/add_note_screen.dart';
+import 'package:flutter_training/screens/notes/screens/note_screen.dart';
+import 'package:flutter_training/screens/notes/screens/search_note_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
-import 'package:flutter_training/screens/movie_details.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
 import 'package:flutter_training/screens/profile_screen.dart';
 import 'package:flutter_training/screens/root.dart';
@@ -81,6 +81,11 @@ class _MyAppState extends State<MyApp> {
           create: (_) {
             return GenredProvider();
           },
+        ),
+        ChangeNotifierProvider<NoteProvider>(
+          create: (_) {
+            return NoteProvider();
+          },
         )
       ],
       child: Consumer<DarkThemeProvider>(
@@ -109,6 +114,8 @@ class _MyAppState extends State<MyApp> {
               '/sigin_email': (context) => const SignInWithEmailScreen(),
               '/update_profile': (context) => const UpdateProfileScreen(),
               '/note': (context) => const NoteScreen(),
+              '/add_note': (context) => const AddNoteScreen(),
+              '/search_note': (context) => const SearchNoteScreen(),
             },
           );
         },
