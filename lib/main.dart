@@ -19,6 +19,9 @@ import 'package:flutter_training/screens/notes/provider/note_provider.dart';
 import 'package:flutter_training/screens/notes/screens/add_note_screen.dart';
 import 'package:flutter_training/screens/notes/screens/note_screen.dart';
 import 'package:flutter_training/screens/notes/screens/search_note_screen.dart';
+import 'package:flutter_training/screens/search/next_search_screen.dart';
+import 'package:flutter_training/screens/search/next_two_search_screen.dart';
+import 'package:flutter_training/screens/search/result_search_screen.dart';
 import 'package:flutter_training/screens/search/search_screen.dart';
 import 'package:flutter_training/screens/weather_location_screen.dart';
 import 'package:flutter_training/screens/movies_screens.dart';
@@ -27,6 +30,7 @@ import 'package:flutter_training/screens/root.dart';
 import 'package:flutter_training/screens/splash_screen.dart';
 import 'package:flutter_training/screens/weather_screen.dart';
 import 'package:flutter_training/screens/weather_setting_screen.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -91,7 +95,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, value, child) {
-          return MaterialApp(
+          return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             // theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Hind'),
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
@@ -118,6 +122,9 @@ class _MyAppState extends State<MyApp> {
               '/add_note': (context) => const AddNoteScreen(),
               '/search_note': (context) => const SearchNoteScreen(),
               '/search': (context) => const SearchScreen(),
+              '/next_search': (context) => const NextSearchScreen(),
+              '/next_step_search': (context) => const NextTwoSearchScreen(),
+              '/result_search': (context) => const ResultSearchScreen(),
             },
           );
         },

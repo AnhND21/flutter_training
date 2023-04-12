@@ -43,6 +43,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.2
   flutter_svg: ^2.0.4
+  get: ^4.6.5
   get_it: ^7.2.0
   google_nav_bar: ^5.0.6
   http: ^0.13.5
@@ -90,6 +91,7 @@ flutter:
     - assets/svgs/menu_checked.svg
     - assets/images/rafiki.png
     - assets/images/cuate.png
+    - assets/images/Marvel_Logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

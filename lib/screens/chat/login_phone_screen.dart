@@ -17,7 +17,7 @@ class LoginPhoneScreen extends StatefulWidget {
 
 class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
   TextEditingController phoneController =
-      TextEditingController(text: '0326801100');
+      TextEditingController(text: '0326801111');
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;

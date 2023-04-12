@@ -15,7 +15,7 @@ class SignInWithEmailScreen extends StatefulWidget {
 
 class _SignInWithEmailScreen extends State<SignInWithEmailScreen> {
   bool _isLoading = false;
-  String email = 'da@g.com';
+  String email = 'kk2@g.com';
   String password = '111111';
   final CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
@@ -33,7 +33,7 @@ class _SignInWithEmailScreen extends State<SignInWithEmailScreen> {
         setState(() {
           _isLoading = false;
         });
-        getUserInfo(userCredential);
+        // getUserInfo(userCredential);
         onNavigateToHome();
       }
     } on FirebaseAuthException catch (e) {
