@@ -92,6 +92,10 @@ flutter:
     - assets/images/rafiki.png
     - assets/images/cuate.png
     - assets/images/Marvel_Logo.png
+    - assets/images/poster1.png
+    - assets/images/poster2.png
+    - assets/images/poster3.jpg
+    - assets/images/poster4.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
