@@ -29,4 +29,8 @@ class AppRoutes {
   static const CREATE_PROFILE_SCREEN = "/create_profile_screen";
   static const CHAT_SCREEN = "/chat_screen";
   static const EDIT_PROFILE_SCREEN = "/edit_profile_screen";
+
+  // notes
+  static const NOTE_SCREEN = "/notes";
+  static const ADD_NOTE_SCREEN = "/add_note";
 }

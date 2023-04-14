@@ -120,27 +120,35 @@ class WelcomePage extends GetView<WelcomeController> {
                         ),
                         Positioned(
                             bottom: 110,
-                            child: SizedBox(
-                              width: 100,
-                              height: 32,
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                          const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(16)))),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.blueAccent)),
-                                  onPressed: () {
-                                    controller.goToMainPage();
-                                  },
+                            child: InkWell(
+                                onTap: () {
+                                  controller.goToMainPage();
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueAccent,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.blueAccent
+                                              .withOpacity(0.3),
+                                          spreadRadius: 1,
+                                          blurRadius: 20,
+                                          offset: const Offset(1, 1),
+                                        )
+                                      ],
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(32))),
                                   child: const Text(
-                                    'Start',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
-                                  )),
-                            ))
+                                    "Let's go!",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                                  ),
+                                )))
                       ],
                     ),
                   ),
