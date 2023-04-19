@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:flutter_training/commons/routes/app_routes.dart';
 import 'package:flutter_training/models/weather_hour.dart';
+import 'package:flutter_training/screens/weather_location_screen.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -62,8 +65,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 
   void navigateToLocation() {
-    Navigator.pushNamed(context, '/weather_location',
+    Get.to(() => const WeatherLocationScreen(),
         arguments: WeatherArguments(city, callBack));
+    // Navigator.pushNamed(context, '/weather_location',
+    //     arguments: WeatherArguments(city, callBack));
   }
 
   void callBack(String cityName, int index) async {
@@ -148,8 +153,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                               InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/weather_setting');
+                                    Get.toNamed(
+                                        AppRoutes.WEATHER_SETTING_SCREEN);
                                   },
                                   child: const Icon(
                                     Icons.more_vert_outlined,

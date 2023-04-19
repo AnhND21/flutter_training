@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/commons/routes/app_routes.dart';
 import 'package:flutter_training/screens/chat/services/firebase_auth_provider.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class ChatWelcomeScreen extends StatelessWidget {
@@ -44,11 +46,12 @@ class ChatWelcomeScreen extends StatelessWidget {
                   )),
               InkWell(
                 onTap: () {
-                  if (authProvider.isAuthenticated) {
-                    Navigator.pushNamed(context, '/chats');
-                  } else {
-                    Navigator.pushNamed(context, '/login_phone');
-                  }
+                  Get.toNamed(AppRoutes.LOGIN_PHONE_CHAT_SCREEN);
+                  // if (authProvider.isAuthenticated) {
+                  //   Navigator.pushNamed(context, '/chats');
+                  // } else {
+                  //   Navigator.pushNamed(context, '/login_phone');
+                  // }
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),

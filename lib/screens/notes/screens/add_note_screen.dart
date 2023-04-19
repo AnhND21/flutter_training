@@ -95,7 +95,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                             height: 20,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/screens/chat/chat_screen.dart';
+import 'package:get/route_manager.dart';
 import 'package:path/path.dart' as p;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
@@ -93,7 +95,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   }
 
   void navigateToHomeChat() {
-    Navigator.pushNamed(context, '/chats');
+    Get.off(() => const ChatScreen());
   }
 
   @override

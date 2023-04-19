@@ -248,7 +248,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                                                       Radius.circular(16)),
                                             ),
                                             child: Text(
-                                                'IMDb ${mData.voteAverage}',
+                                                'IMDb ${mData.voteAverage.toString().substring(0, 3)}',
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontWeight:
@@ -366,25 +366,31 @@ class _MovieDetailsState extends State<MovieDetails> {
                                                           height: 50,
                                                         ),
                                                       ),
-                                                      Text(
-                                                        mData.originalTitle
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        maxLines: 2,
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(top: 8.0),
+                                                        child: Text(
+                                                          mData.originalTitle
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          maxLines: 2,
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        mData.releaseDate
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                            color: Colors.grey),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        maxLines: 2,
-                                                      ),
+                                                      // Text(
+                                                      //   mData.releaseDate
+                                                      //       .toString(),
+                                                      //   style: const TextStyle(
+                                                      //       color: Colors.grey),
+                                                      //   textAlign:
+                                                      //       TextAlign.center,
+                                                      //   maxLines: 2,
+                                                      // ),
                                                     ],
                                                   ),
                                                 );

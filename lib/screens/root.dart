@@ -39,7 +39,7 @@ class RootScreen extends GetView<RootController> {
         route = AppRoutes.NOTE_SCREEN;
         break;
       case 6:
-        route = '/search';
+        route = AppRoutes.SEARCH_SCREEN;
         break;
       default:
     }

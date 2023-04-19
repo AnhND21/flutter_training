@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/commons/routes/app_routes.dart';
 import 'package:flutter_training/screens/notes/provider/note_provider.dart';
 import 'package:flutter_training/screens/notes/screens/add_note_screen.dart';
 import 'package:flutter_training/screens/notes/utils/random_color.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class NoteScreen extends StatefulWidget {
@@ -93,7 +95,7 @@ class _NoteScreenState extends State<NoteScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/search_note');
+                    Get.toNamed(AppRoutes.SEARCH_NOTE_SCREEN);
                   },
                   child: Container(
                     width: 42,
@@ -160,11 +162,7 @@ class _NoteScreenState extends State<NoteScreen> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return AddNoteScreen(id: notes[index].id);
-                          },
-                        ));
+                        Get.to(() => AddNoteScreen(id: notes[index].id));
                       },
                       child: Card(
                           shape: ContinuousRectangleBorder(
@@ -189,11 +187,7 @@ class _NoteScreenState extends State<NoteScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return const AddNoteScreen();
-            },
-          ));
+          Get.to(() => const AddNoteScreen());
         },
         child: const Icon(
           CupertinoIcons.add,

@@ -7,26 +7,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_training/screens/chat/confirm_otp_screen.dart';
+import 'package:flutter_training/screens/chat/controller/LoginOTPController.dart';
+import 'package:get/get.dart';
 
-class LoginPhoneScreen extends StatefulWidget {
-  const LoginPhoneScreen({super.key});
+class LoginPhoneScreen extends GetView<LoginOTPController> {
+  LoginPhoneScreen({super.key});
 
-  @override
-  State<LoginPhoneScreen> createState() => _LoginPhoneScreenState();
-}
-
-class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
-  TextEditingController phoneController =
+  final TextEditingController phoneController =
       TextEditingController(text: '0326801111');
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;
 
-  void navigateSignUpEmail() {
-    Navigator.pushNamed(context, '/signup_email');
-  }
+  void navigateSignUpEmail() {}
 
-  Future<void> verifyPhone() async {
+  Future<void> verifyPhone(BuildContext context) async {
     try {
       await _auth.verifyPhoneNumber(
         verificationCompleted: (phoneAuthCredential) {},
@@ -45,7 +40,7 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
               return ConfirmOTPScreen(
                   phone: phoneController.text,
                   verificationId: verificationId,
-                  resendCode: () => verifyPhone());
+                  resendCode: () => verifyPhone(context));
             },
           );
         }, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
@@ -66,7 +61,7 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
-            Navigator.pop(context);
+            Get.back();
           },
           child: const Icon(CupertinoIcons.chevron_back),
         ),
@@ -192,7 +187,7 @@ class _LoginPhoneScreenState extends State<LoginPhoneScreen> {
               InkWell(
                 onTap: () {
                   phoneController.text.isNotEmpty
-                      ? {FocusScope.of(context).unfocus(), verifyPhone()}
+                      ? {FocusScope.of(context).unfocus(), verifyPhone(context)}
                       : {};
                 },
                 child: Container(

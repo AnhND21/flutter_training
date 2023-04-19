@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_training/screens/chat/create_profile_screen.dart';
+import 'package:get/get.dart';
 
 class ConfirmOTPScreen extends StatefulWidget {
   final String phone;
@@ -44,7 +46,8 @@ class _ConfirmOTPScreenState extends State<ConfirmOTPScreen> {
   }
 
   void navigateToCreateProfile(UserCredential userCredential) {
-    Navigator.pushNamed(context, '/create_profile', arguments: userCredential);
+    Get.to(() => const CreateProfileScreen(), arguments: userCredential);
+    // Navigator.pushNamed(context, '/create_profile', arguments: userCredential);
   }
 
   Future<void> onSignUpWithPhoneNumber() async {

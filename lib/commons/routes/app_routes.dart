@@ -33,4 +33,11 @@ class AppRoutes {
   // notes
   static const NOTE_SCREEN = "/notes";
   static const ADD_NOTE_SCREEN = "/add_note";
+  static const SEARCH_NOTE_SCREEN = "/search_note";
+
+  // routes search
+  static const SEARCH_SCREEN = "/search";
+  static const SEARCH_FIRST_SCREEN = "/search_first";
+  static const SEARCH_SECOND_SCREEN = "/search_second";
+  static const SEARCH_RESULT_SCREEN = "/search_result";
 }

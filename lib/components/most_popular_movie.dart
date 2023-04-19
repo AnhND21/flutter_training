@@ -136,18 +136,24 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Text(
-                                                  '${i.title!.length <= 16 ? i.title : i.title!.substring(0, i.title!.length - 10)}...',
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 18,
+                                                Flexible(
+                                                  child: Text(
+                                                    '${i.title}',
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 18,
+                                                    ),
+                                                    maxLines: 1,
+                                                    softWrap: true,
                                                   ),
-                                                  maxLines: 1,
-                                                  softWrap: true,
                                                 ),
                                                 Container(
+                                                  margin: const EdgeInsets.only(
+                                                      left: 8),
                                                   padding: const EdgeInsets
                                                           .symmetric(
                                                       horizontal: 8,
@@ -161,7 +167,7 @@ class _MostPopularMoviesState extends State<MostPopularMovies> {
                                                                       .circular(
                                                                           16))),
                                                   child: Text(
-                                                    "IMDb ${i.voteAverage}",
+                                                    "IMDb ${i.voteAverage.toString().substring(0, 3)}",
                                                     style: const TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
