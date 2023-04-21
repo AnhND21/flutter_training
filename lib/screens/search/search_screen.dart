@@ -64,18 +64,24 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     String url = "https://m.media-amazon.com/images/I/815oKqKUo4L.jpg";
     return Scaffold(
-      body: Stack(
-        children: [
-          BackgroundRoute(url: url),
-          SearchContent(
-              content:
-                  "All your favorite Marvel Movies & Series at one place \n",
-              editingController: editingController),
-          ButtonBottom(
-            title: 'Continue',
-            onPress: navigateToNextScreen,
-          )
-        ],
+      resizeToAvoidBottomInset: false,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Stack(
+          children: [
+            BackgroundRoute(url: url),
+            SearchContent(
+                content:
+                    "All your favorite Marvel Movies & Series at one place \n",
+                editingController: editingController),
+            ButtonBottom(
+              title: 'Continue',
+              onPress: navigateToNextScreen,
+            )
+          ],
+        ),
       ),
     );
   }
